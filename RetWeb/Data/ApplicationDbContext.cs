@@ -1,6 +1,7 @@
 ﻿//Basic Configuration needed for Entity Framework
 
 using Microsoft.EntityFrameworkCore;
+using RetWeb.Models;
 
 namespace RetWeb.Data
 {
@@ -10,5 +11,7 @@ namespace RetWeb.Data
         {
             
         }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }
