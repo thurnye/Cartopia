@@ -19,5 +19,14 @@ namespace RetWeb.Controllers
             List<Category> objCategoryList = _db.Categories.ToList();  // retrieve the list
             return View(objCategoryList);
         }
+
+        /// <summary>
+        /// Displays the Create Category Page
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Create() 
+        {
+            return View();
+        }
     }
 }
