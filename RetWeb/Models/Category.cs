@@ -19,7 +19,7 @@ namespace RetWeb.Models
         /// <summary>
         /// Display Order of the Category
         /// </summary>
-        public string? DisplayOrder { get; set; }
+        public int? DisplayOrder { get; set; }
 
 
 
