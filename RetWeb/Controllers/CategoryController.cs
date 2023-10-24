@@ -21,37 +21,6 @@ namespace RetWeb.Controllers
         }
 
         /// <summary>
-        /// Displays the Create Category Page
-        /// </summary>
-        /// <returns></returns>
-        //public IActionResult Create() 
-        //{
-        //    return View();
-        //}
-
-
-        /// <summary>
-        /// This handles the post method for the create category form
-        /// </summary>
-        /// <returns></returns>
-        //[HttpPost]
-        //public IActionResult Create(Category obj)
-        //{   
-        //    //prevent the category name and the display order to have the same name
-        //    if(obj.Name?.ToLower() == obj.DisplayOrder.ToString())
-        //    {
-        //        ModelState.AddModelError("Name", "The Display Order and Category Name cannot be the same");
-        //    }
-        //    if (ModelState.IsValid) 
-        //    { 
-        //        _db.Categories.Add(obj);  // Add the category data to the category table
-        //        _db.SaveChanges();
-        //        return RedirectToAction("Index", "Category");  //Redirect to the category details page, params => (view name, ControllerName-optional)
-        //    }
-        //    return View();
-        //}
-
-        /// <summary>
         /// Get Displays for Create or Edit Category Page
         /// </summary>
         /// <returns></returns>
@@ -122,6 +91,45 @@ namespace RetWeb.Controllers
                 _db.Categories.Update(existingCategory);
             }
 
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Category");
+        }
+
+
+        /// <summary>
+        /// Get Delete a Category UI
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return View();
+            }
+
+
+            Category? category = _db.Categories.Find(id); 
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
+        }
+
+        /// <summary>
+        /// Delete a Category
+        /// </summary>
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePost(int? id)
+        {
+
+            Category? obj = _db.Categories.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("Index", "Category");
         }
