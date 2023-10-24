@@ -9,13 +9,18 @@
             </h2>
             <hr/>
         </div>
+
+        @* <div class="mb-3 text-danger" asp-validation-summary="ModelOnly"></div>  this will display all the errors at the top of the form, All- shows all errors, ModelOnly- targets only errors not related to any fields *@
         <div class="mb-3">
-            <label for="exampleInputCategoryName1" class="form-label">Category Name</label>
+            <label for="Name" class="form-label">Category Name</label>
             <input type="text" class="form-control"  asp-for="Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
             <label asp-for="DisplayOrder" class="form-label"></label>
             <input type="number" class="form-control" asp-for="DisplayOrder">
+            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
         </div>
         
         <div class="row mb-3">

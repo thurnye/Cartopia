@@ -34,10 +34,19 @@ namespace RetWeb.Controllers
         /// <returns></returns>
         [HttpPost]
         public IActionResult Create(Category obj)
-        {
-            _db.Categories.Add(obj);  // Add the category data to the category table
-            _db.SaveChanges();
-            return RedirectToAction("Index", "Category");  //Redirect to the category details page, params => (view name, ControllerName-optional)
+        {   
+            //prevent the category name and the display order to have the same name
+            if(obj.Name?.ToLower() == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("Name", "The Display Order and Category Name cannot be the same");
+            }
+            if (ModelState.IsValid) 
+            { 
+                _db.Categories.Add(obj);  // Add the category data to the category table
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Category");  //Redirect to the category details page, params => (view name, ControllerName-optional)
+            }
+            return View();
         }
     }
 }
