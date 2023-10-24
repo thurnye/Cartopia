@@ -25,5 +25,10 @@ namespace RetWeb.Models
         [DisplayName("Display Order")] //This will be the name of the field in UI
         [Range( 1, 100, ErrorMessage="Display Order must be between 1 and 100")]  // This is for validation of the value
         public int DisplayOrder { get; set; }
+        /// <summary>
+        /// For Displaying or removing items from the ui
+        /// </summary>
+
+        public int IsDeleted { get; set; } = 0;
     }
 }
