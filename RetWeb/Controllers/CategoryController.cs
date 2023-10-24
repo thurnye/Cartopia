@@ -55,6 +55,8 @@ namespace RetWeb.Controllers
                 return View(obj);
             }
 
+            string message;
+
             if (obj.Id == 0 || obj.Id == null)
             {
                 // Prevent the category name and the display order to have the same name
@@ -66,6 +68,8 @@ namespace RetWeb.Controllers
 
                 // Category creation
                 _db.Categories.Add(obj);
+                message = obj.Name + " Category created successfully.";
+
             }
             else   //UPDATE
             {
@@ -89,9 +93,12 @@ namespace RetWeb.Controllers
                 existingCategory.DisplayOrder = obj.DisplayOrder;
 
                 _db.Categories.Update(existingCategory);
+                message = obj.Name + " Category updated successfully.";
+
             }
 
             _db.SaveChanges();
+            TempData["success"] = message;    // this will send back a message notification to the index category page 
             return RedirectToAction("Index", "Category");
         }
 
@@ -131,6 +138,8 @@ namespace RetWeb.Controllers
             }
             _db.Categories.Remove(obj);
             _db.SaveChanges();
+            TempData["success"] = obj.Name + " Category Deleted Successfully.";
+            ;
             return RedirectToAction("Index", "Category");
         }
 
