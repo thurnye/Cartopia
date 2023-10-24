@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace RetWeb.Models
 {
@@ -19,6 +20,7 @@ namespace RetWeb.Models
         /// <summary>
         /// Display Order of the Category
         /// </summary>
+        [DisplayName("Display Order")]
         public int? DisplayOrder { get; set; }
 
 

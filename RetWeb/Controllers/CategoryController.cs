@@ -28,5 +28,16 @@ namespace RetWeb.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// This handles the post method for the create category form
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Create(Category obj)
+        {
+            _db.Categories.Add(obj);  // Add the category data to the category table
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Category");  //Redirect to the category details page, params => (view name, ControllerName-optional)
+        }
     }
 }

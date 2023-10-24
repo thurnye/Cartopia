@@ -11,11 +11,11 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputCategoryName1" class="form-label">Category Name</label>
-            <input type="text" class="form-control" id="exampleInputCategoryName1" aria-describedby="CategoryNameHelp">
+            <input type="text" class="form-control"  asp-for="Name">
         </div>
         <div class="mb-3">
-            <label for="exampleInputDisplayOrder" class="form-label">Display Order</label>
-            <input type="number" class="form-control" id="exampleInputDisplayOrder">
+            <label asp-for="DisplayOrder" class="form-label"></label>
+            <input type="number" class="form-control" asp-for="DisplayOrder">
         </div>
         
         <div class="row mb-3">
