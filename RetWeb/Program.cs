@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RetWeb.Data;
+using RetWeb.DataAccess.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

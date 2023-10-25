@@ -2,17 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RetWeb.Data;
+using RetWeb.DataAccess.Data;
 
 #nullable disable
 
-namespace RetWeb.Migrations
+namespace RetWeb.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231025025430_AddCategoryToDbAndSeedTable")]
+    partial class AddCategoryToDbAndSeedTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,8 +35,8 @@ namespace RetWeb.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
-                    b.Property<int>("IsDeleted")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -49,21 +52,21 @@ namespace RetWeb.Migrations
                         {
                             Id = 1,
                             DisplayOrder = 1,
-                            IsDeleted = 0,
+                            IsDeleted = false,
                             Name = "Action"
                         },
                         new
                         {
                             Id = 2,
                             DisplayOrder = 2,
-                            IsDeleted = 0,
+                            IsDeleted = false,
                             Name = "SciFi"
                         },
                         new
                         {
                             Id = 3,
                             DisplayOrder = 3,
-                            IsDeleted = 0,
+                            IsDeleted = false,
                             Name = "History"
                         });
                 });
