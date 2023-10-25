@@ -15,4 +15,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RetWeb.DataAccess\RetWeb.DataAccess.csproj" />
+    <ProjectReference Include="..\RetWeb.Models\RetWeb.Models.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RetWeb.Data;
+using RetWeb.DataAccess.Data;
 using RetWeb.Models;
 
 namespace RetWeb.Controllers

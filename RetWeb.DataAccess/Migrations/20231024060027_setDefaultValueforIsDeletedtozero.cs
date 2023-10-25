@@ -2,25 +2,16 @@
 
 #nullable disable
 
-namespace RetWeb.Migrations
+namespace RetWeb.DataAccess.DataMigrations
 {
     /// <inheritdoc />
-    public partial class AddedIsDeletedToColumnName : Migration
+    public partial class setDefaultValueforIsDeletedtozero : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Categories",
-                type: "nvarchar(30)",
-                maxLength: 30,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
             migrationBuilder.AlterColumn<int>(
-                name: "DisplayOrder",
+                name: "IsDeleted",
                 table: "Categories",
                 type: "int",
                 nullable: false,
@@ -29,11 +20,38 @@ namespace RetWeb.Migrations
                 oldType: "int",
                 oldNullable: true);
 
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.UpdateData(
+                table: "Categories",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "IsDeleted",
+                value: 0);
+
+            migrationBuilder.UpdateData(
+                table: "Categories",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "IsDeleted",
+                value: 0);
+
+            migrationBuilder.UpdateData(
+                table: "Categories",
+                keyColumn: "Id",
+                keyValue: 3,
+                column: "IsDeleted",
+                value: 0);
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AlterColumn<int>(
                 name: "IsDeleted",
                 table: "Categories",
                 type: "int",
-                nullable: true);
+                nullable: true,
+                oldClrType: typeof(int),
+                oldType: "int");
 
             migrationBuilder.UpdateData(
                 table: "Categories",
@@ -55,31 +73,6 @@ namespace RetWeb.Migrations
                 keyValue: 3,
                 column: "IsDeleted",
                 value: null);
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "IsDeleted",
-                table: "Categories");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Categories",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(30)",
-                oldMaxLength: 30);
-
-            migrationBuilder.AlterColumn<int>(
-                name: "DisplayOrder",
-                table: "Categories",
-                type: "int",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "int");
         }
     }
 }

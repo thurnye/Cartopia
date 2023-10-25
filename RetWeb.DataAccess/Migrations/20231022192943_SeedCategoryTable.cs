@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace RetWeb.Migrations
+namespace RetWeb.DataAccess.DataMigrations
 {
     /// <inheritdoc />
     public partial class SeedCategoryTable : Migration

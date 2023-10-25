@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RetWeb.Data;
+using RetWeb.DataAccess.Data;
 
 #nullable disable
 
-namespace RetWeb.Migrations
+namespace RetWeb.DataAccess.DataMigrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231024054800_AddedIsDeletedToColumnName")]

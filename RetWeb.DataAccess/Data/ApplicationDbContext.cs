@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using RetWeb.Models;
 
-namespace RetWeb.Data
+namespace RetWeb.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

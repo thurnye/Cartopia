@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace RetWeb.Migrations
+namespace RetWeb.DataAccess.DataMigrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration
