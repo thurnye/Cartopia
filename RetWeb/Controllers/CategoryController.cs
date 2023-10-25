@@ -16,7 +16,7 @@ namespace RetWeb.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();  // retrieve the list
+            List<Category> objCategoryList = _db.Categories.Where(c => c.IsDeleted == 0).ToList();  // retrieve the list
             return View(objCategoryList);
         }
 
@@ -136,9 +136,12 @@ namespace RetWeb.Controllers
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
+            //_db.Categories.Remove(obj);
+            obj.IsDeleted = 1;
+
+            _db.Categories.Update(obj);
             _db.SaveChanges();
-            TempData["success"] = obj.Name + " Category Deleted Successfully.";
+            TempData["success"] = "Deleted " + obj.Name + " Category Successfully.";
             ;
             return RedirectToAction("Index", "Category");
         }
