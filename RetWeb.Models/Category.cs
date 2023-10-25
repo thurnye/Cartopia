@@ -29,6 +29,6 @@ namespace RetWeb.Models
         /// For Displaying or removing items from the ui
         /// </summary>
 
-        public int IsDeleted { get; set; } = 0;
+        public bool IsDeleted { get; set; } = false;
     }
 }
