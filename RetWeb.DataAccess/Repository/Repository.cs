@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RetWeb.DataAccess.Data;
-using RetWeb.DataAccess.Repository.IRepository;
+using RetWeb.DataAccess.IRepository;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace RetWeb.DataAccess.Repository
-{   
+namespace RetWeb.DataAccess.Repository    // this will be a generic Repository for the app, here we wont add the updates can be tailored to fit specific request
+{
 
-    public class Repository<T> : IRespository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class   
     {
         // we need to have access to the dbContext using dependency injection
         private readonly ApplicationDbContext _db;
@@ -78,14 +78,5 @@ namespace RetWeb.DataAccess.Repository
             dbSet.RemoveRange(entities);
         }
 
-        /// <summary>
-        /// Update One Entity
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
