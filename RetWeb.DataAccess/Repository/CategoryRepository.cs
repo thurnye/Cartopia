@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace RetWeb.DataAccess.Repository
 {
     //we already have the add, get, remove and removerange in the our generic repo, so we dont need them we need the base functionality 
-    internal class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         private readonly ApplicationDbContext _db;           
         public CategoryRepository(ApplicationDbContext db) : base(db) //we want to bass the applicationDbContext to the base class which is the Repository.cs file
