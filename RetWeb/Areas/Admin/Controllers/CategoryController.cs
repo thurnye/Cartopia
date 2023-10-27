@@ -3,10 +3,11 @@ using RetWeb.DataAccess.Data;
 using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
 
-namespace RetWeb.Controllers
+namespace RetWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
-    {   
+    {
         /// <summary>
         /// use the ICategoryRepository rather than use the ApplicationDbContext here directly
         /// </summary>
@@ -36,7 +37,7 @@ namespace RetWeb.Controllers
             }
 
 
-            Category? category = _unitOfWork.Category.Get(u => u.Id == id); 
+            Category? category = _unitOfWork.Category.Get(u => u.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -81,7 +82,7 @@ namespace RetWeb.Controllers
             }
             else   //UPDATE
             {
-                
+
                 // Check if the category with the provided ID exists
                 var existingCategory = _unitOfWork.Category.Get(u => u.Id == obj.Id);
                 if (existingCategory == null)
