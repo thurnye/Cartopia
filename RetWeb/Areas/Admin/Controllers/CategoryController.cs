@@ -1,29 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RetWeb.DataAccess.Data;
+using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
 
-namespace RetWeb.Controllers
+namespace RetWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
-    {   
+    {
         /// <summary>
-        ///  this will help us to connect to the db through the application context since it is available in the services
+        /// use the ICategoryRepository rather than use the ApplicationDbContext here directly
         /// </summary>
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly IUnitOfWork _unitOfWork;
+
+
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.Where(c => !c.IsDeleted).ToList();  // retrieve the list
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();  // retrieve the list
             return View(objCategoryList);
         }
 
         /// <summary>
         /// Get Displays for Create or Edit Category Page
+        /// <param name="id"></param>
         /// </summary>
-        /// <returns></returns>
+        /// <returns> the view page for create or edit </returns>
         public IActionResult CreateAndEdit(int? id)
         {
             if (id == null || id == 0)
@@ -32,9 +37,7 @@ namespace RetWeb.Controllers
             }
 
 
-            Category? category = _db.Categories.Find(id); // only accepts id or the primary key
-            //Category category1 = _db.Categories.FirstOrDefault(u => u.Id == id);  // return null if object not found otherwise return the first found, accepts any field name
-            //Category category2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault(); // use the where and also the first or default
+            Category? category = _unitOfWork.Category.Get(u => u.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -43,9 +46,13 @@ namespace RetWeb.Controllers
             return View(category);
         }
 
+
+
         /// <summary>
         /// Post and Update method for the create category form
         /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult CreateAndEdit(Category obj)
         {
@@ -59,6 +66,8 @@ namespace RetWeb.Controllers
 
             if (obj.Id == 0 || obj.Id == null)
             {
+                //CREATE
+
                 // Prevent the category name and the display order to have the same name
                 if (obj.Name?.ToLower() == obj.DisplayOrder.ToString())
                 {
@@ -67,15 +76,15 @@ namespace RetWeb.Controllers
                 }
 
                 // Category creation
-                _db.Categories.Add(obj);
+                _unitOfWork.Category.Add(obj);
                 message = obj.Name + " Category created successfully.";
 
             }
             else   //UPDATE
             {
-                
+
                 // Check if the category with the provided ID exists
-                var existingCategory = _db.Categories.Find(obj.Id);
+                var existingCategory = _unitOfWork.Category.Get(u => u.Id == obj.Id);
                 if (existingCategory == null)
                 {
                     return NotFound(); // Handle this situation according to your needs
@@ -92,12 +101,12 @@ namespace RetWeb.Controllers
                 existingCategory.Name = obj.Name;
                 existingCategory.DisplayOrder = obj.DisplayOrder;
 
-                _db.Categories.Update(existingCategory);
+                _unitOfWork.Category.Update(existingCategory);
                 message = obj.Name + " Category updated successfully.";
 
             }
 
-            _db.SaveChanges();
+            _unitOfWork.Save();
             TempData["success"] = message;    // this will send back a message notification to the index category page 
             return RedirectToAction("Index", "Category");
         }
@@ -105,8 +114,9 @@ namespace RetWeb.Controllers
 
         /// <summary>
         /// Get Delete a Category UI
+        /// <param name="id"></param>
         /// </summary>
-        /// <returns></returns>
+        /// <returns> Delete Page </returns>
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
@@ -115,7 +125,7 @@ namespace RetWeb.Controllers
             }
 
 
-            Category? category = _db.Categories.Find(id); 
+            Category? category = _unitOfWork.Category.Get(u => u.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -124,23 +134,27 @@ namespace RetWeb.Controllers
             return View(category);
         }
 
+
+
         /// <summary>
         /// Delete a Category
         /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
 
-            Category? obj = _db.Categories.Find(id);
+            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            //_db.Categories.Remove(obj);
+            //_unitOfWork.Category.Remove(obj);
             obj.IsDeleted = true;
 
-            _db.Categories.Update(obj);
-            _db.SaveChanges();
+            _unitOfWork.Category.Update(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Deleted " + obj.Name + " Category Successfully.";
             ;
             return RedirectToAction("Index", "Category");

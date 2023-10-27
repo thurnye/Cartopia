@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using RetWeb.Models;
 using System.Diagnostics;
 
-namespace RetWeb.Controllers
+namespace RetWeb.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
