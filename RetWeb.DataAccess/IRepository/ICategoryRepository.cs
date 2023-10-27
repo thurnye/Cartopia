@@ -15,12 +15,6 @@ namespace RetWeb.DataAccess.IRepository
         /// </summary>
         /// <param name="obj"></param>
         void Update(Category obj);
-
-       
-
-        /// <summary>
-        /// Save the category repository
-        /// </summary>
-        void Save();
+        
     }
 }

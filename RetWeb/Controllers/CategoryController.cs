@@ -10,16 +10,16 @@ namespace RetWeb.Controllers
         /// <summary>
         /// use the ICategoryRepository rather than use the ApplicationDbContext here directly
         /// </summary>
-        private readonly ICategoryRepository _categoryRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
 
-        public CategoryController(ICategoryRepository db)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _categoryRepo = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();  // retrieve the list
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();  // retrieve the list
             return View(objCategoryList);
         }
 
@@ -36,7 +36,7 @@ namespace RetWeb.Controllers
             }
 
 
-            Category? category = _categoryRepo.Get(u => u.Id == id); 
+            Category? category = _unitOfWork.Category.Get(u => u.Id == id); 
             if (category == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace RetWeb.Controllers
                 }
 
                 // Category creation
-                _categoryRepo.Add(obj);
+                _unitOfWork.Category.Add(obj);
                 message = obj.Name + " Category created successfully.";
 
             }
@@ -83,7 +83,7 @@ namespace RetWeb.Controllers
             {
                 
                 // Check if the category with the provided ID exists
-                var existingCategory = _categoryRepo.Get(u => u.Id == obj.Id);
+                var existingCategory = _unitOfWork.Category.Get(u => u.Id == obj.Id);
                 if (existingCategory == null)
                 {
                     return NotFound(); // Handle this situation according to your needs
@@ -100,12 +100,12 @@ namespace RetWeb.Controllers
                 existingCategory.Name = obj.Name;
                 existingCategory.DisplayOrder = obj.DisplayOrder;
 
-                _categoryRepo.Update(existingCategory);
+                _unitOfWork.Category.Update(existingCategory);
                 message = obj.Name + " Category updated successfully.";
 
             }
 
-            _categoryRepo.Save();
+            _unitOfWork.Save();
             TempData["success"] = message;    // this will send back a message notification to the index category page 
             return RedirectToAction("Index", "Category");
         }
@@ -124,7 +124,7 @@ namespace RetWeb.Controllers
             }
 
 
-            Category? category = _categoryRepo.Get(u => u.Id == id);
+            Category? category = _unitOfWork.Category.Get(u => u.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -144,16 +144,16 @@ namespace RetWeb.Controllers
         public IActionResult DeletePost(int? id)
         {
 
-            Category? obj = _categoryRepo.Get(u => u.Id == id);
+            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            //_categoryRepo.Remove(obj);
+            //_unitOfWork.Category.Remove(obj);
             obj.IsDeleted = true;
 
-            _categoryRepo.Update(obj);
-            _categoryRepo.Save();
+            _unitOfWork.Category.Update(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Deleted " + obj.Name + " Category Successfully.";
             ;
             return RedirectToAction("Index", "Category");
