@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RetWeb.Models
 {
@@ -67,6 +68,18 @@ namespace RetWeb.Models
         [Display(Name = "Price for 100+ Copies")]
         [Range(1, 1000)]
         public double Price100 { get; set; }
+
+        /// <summary>
+        /// Category Id
+        /// </summary>
+        public int CategoryId { get; set; } //we need to tell the table that this is a foreign key explicitly adding a navigation property to the category table on the nxt line
+        [ForeignKey("CategoryId")] // this helps us to indicate that this category table has a foreign key which is categoryId
+        public Category Category { get; set; }
+
+        /// <summary>
+        /// product Image
+        /// </summary>
+        public string? ImageUrl { get; set; }
 
         /// <summary>
         /// Deleted flag
