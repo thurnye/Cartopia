@@ -1,13 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
 using RetWeb.DataAccess.Data;
 using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetWeb.DataAccess.Repository
 {

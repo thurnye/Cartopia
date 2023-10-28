@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using RetWeb.DataAccess.Data;
 using RetWeb.DataAccess.IRepository;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace RetWeb.DataAccess.Repository    // this will be a generic Repository for the app, here we wont add the updates can be tailored to fit specific request
 {
