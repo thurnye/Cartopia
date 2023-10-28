@@ -35,7 +35,7 @@ namespace RetWeb.Areas.Admin.Controllers
         /// <param name="id"></param>
         /// </summary>
         /// <returns> the view page for create or edit </returns>
-        public IActionResult CreateAndEdit(int? id)
+        public IActionResult Upsert(int? id)
         {
             //we need the list of categories in the index view for dropdown option so we use the SelectListItem and convert it to dropdown options using projection
             IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
@@ -85,7 +85,7 @@ namespace RetWeb.Areas.Admin.Controllers
         /// <param name="obj"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult CreateAndEdit(ProductVM obj)   // we have to modify the model to productVM
+        public IActionResult Upsert(ProductVM obj, IFormFile? file)   // we have to modify the model to productVM, the IFormFile gets the file input
         {
            
             // Check if the ModelState is valid before proceeding

@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
             <input type="number" asp-for="Product.Id" hidden>
             <div class="border p-3 mt-4">
                <div class=" py-2 col-12 mb-3">
@@ -52,8 +52,7 @@
 
                     <div class=" py-2 col-4 mb-3">
                         <label asp-for="Product.ImageUrl" class="form-label">Image Url</label>
-                        <input type="text" class="form-control shadow" asp-for="Product.ImageUrl">
-                        <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+                        <input type="file" class="form-control shadow" asp-for="Product.ImageUrl">
                     </div>
                 </div>
 
