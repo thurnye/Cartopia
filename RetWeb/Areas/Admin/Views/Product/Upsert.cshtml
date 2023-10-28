@@ -18,32 +18,31 @@
             <input type="number" asp-for="Product.Id" hidden>
             <div class="border p-3 mt-4">
                <div class=" py-2 col-12 mb-3">
-                    <label for="Title" class="form-label">Product Title</label>
+                    <label for="Title" class="form-label text-muted">Product Title</label>
                     <input type="text" class="form-control shadow" asp-for="Product.Title">
                     <span asp-validation-for="Product.Title" class="text-danger"></span>
                 </div>
 
                 <div class=" py-2 col-12 mb-3">
-                    <label asp-for="Product.Description" class="form-label"></label>
+                    <label asp-for="Product.Description" class="form-label text-muted"></label>
                     <textarea type="text" class="form-control shadow" asp-for="Product.Description" rows="4"></textarea>
-                    <span asp-validation-for="Product.Description" class="text-danger"></span>
                 </div>
 
                 <div class="row">
                     <div class=" py-2 col-4 mb-3">
-                        <label for="Author" class="form-label"> Author</label>
+                        <label for="Author" class="form-label text-muted"> Author</label>
                         <input type="text" class="form-control shadow" asp-for="Product.Author">
                         <span asp-validation-for="Product.Author" class="text-danger"></span>
                     </div>
 
                     <div class=" py-2 col-4 mb-3">
-                        <label asp-for="Product.ISBN" class="form-label"></label>
+                        <label asp-for="Product.ISBN" class="form-label text-muted"></label>
                         <input type="text" class="form-control shadow" asp-for="Product.ISBN">
                         <span asp-validation-for="Product.ISBN" class="text-danger"></span>
                     </div>
 
                     <div class=" py-2 col-4 mb-3">
-                        <label asp-for="Product.CategoryId" class="form-label">Category</label>
+                        <label asp-for="Product.CategoryId" class="form-label text-muted">Category</label>
                         <select class="form-select  shadow" asp-for="Product.CategoryId" asp-items="@Model.CategoryList">
                             <option disabled selected>--Select Category--</option>
                         </select>
@@ -51,30 +50,30 @@
                     </div>
 
                     <div class=" py-2 col-4 mb-3">
-                        <label asp-for="Product.ImageUrl" class="form-label">Image Url</label>
+                        <label asp-for="Product.ImageUrl" class="form-label text-muted">Image Url</label>
                         <input type="file" class="form-control shadow" asp-for="Product.ImageUrl">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class=" py-2 col-3 mb-3">
-                        <label for="ListPrice" class="form-label">List Price</label>
+                        <label for="ListPrice" class="form-label text-muted">List Price</label>
                         <input type="number" class="form-control shadow" asp-for="Product.ListPrice">
                         <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
                     </div>
 
                     <div class=" py-2 col-3 mb-3">
-                        <label asp-for="Product.Price" class="form-label"></label>
+                        <label asp-for="Product.Price" class="form-label text-muted"></label>
                         <input type="number" class="form-control shadow" asp-for="Product.Price">
                         <span asp-validation-for="Product.Price" class="text-danger"></span>
                     </div>
                     <div class=" py-2 col-3 mb-3">
-                        <label asp-for="Product.Price50" class="form-label"></label>
+                        <label asp-for="Product.Price50" class="form-label text-muted"></label>
                         <input type="number" class="form-control shadow" asp-for="Product.Price50">
                         <span asp-validation-for="Product.Price50" class="text-danger"></span>
                     </div>
                     <div class=" py-2 col-3 mb-3">
-                        <label asp-for="Product.Price100" class="form-label"></label>
+                        <label asp-for="Product.Price100" class="form-label text-muted"></label>
                         <input type="number" class="form-control shadow" asp-for="Product.Price100">
                         <span asp-validation-for="Product.Price100" class="text-danger"></span>
                     </div>
@@ -102,6 +101,20 @@
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough |  mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent ',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [
+                    { value: 'First.Name', title: 'First Name' },
+                    { value: 'Email', title: 'Email' },
+                ],
+                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+            });
+        </script>
     }
 }
 
