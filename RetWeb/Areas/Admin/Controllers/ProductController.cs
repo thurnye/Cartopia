@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
@@ -14,10 +15,14 @@ namespace RetWeb.Areas.Admin.Controllers
         /// </summary>
         private readonly IUnitOfWork _unitOfWork;
 
-
-        public ProductController(IUnitOfWork unitOfWork)
+        /// <summary>
+        /// we want to access the wwwroot folder in the project so we can access the product images
+        /// </summary>
+        private readonly IWebHostEnvironment _webHostEnvironment; 
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         /// <summary>
@@ -87,7 +92,7 @@ namespace RetWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Upsert(ProductVM obj, IFormFile? file)   // we have to modify the model to productVM, the IFormFile gets the file input
         {
-           
+          
             // Check if the ModelState is valid before proceeding
             if (!ModelState.IsValid)
             {
@@ -95,6 +100,29 @@ namespace RetWeb.Areas.Admin.Controllers
             }
 
             string message;
+            string wwwRootPath = _webHostEnvironment.WebRootPath;   //get the webrootpath to give us the wwwroot folder
+
+            if(file !=null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                string productPath = Path.Combine(wwwRootPath, @"images\product");
+                if(!string.IsNullOrEmpty(obj.Product.ImageUrl)) // we are uploading a new image
+                { 
+                    //delete the old image
+                    var oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
+                    if(System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath); // delete file if file exist while updating
+                    }
+
+                }
+                using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                
+                obj.Product.ImageUrl = @"\images\product\" + fileName;
+            }
 
             if (obj.Product.Id == 0 || obj.Product.Id == null)
             {
@@ -125,7 +153,7 @@ namespace RetWeb.Areas.Admin.Controllers
                 existingProduct.Price50 = obj.Product.Price50;
                 existingProduct.Price100 = obj.Product.Price100;
                 existingProduct.CategoryId = obj.Product.CategoryId;
-
+                existingProduct.ImageUrl = obj.Product.ImageUrl;
                 _unitOfWork.Product.Update(existingProduct);
                 message = obj.Product.Title + " updated successfully.";
 

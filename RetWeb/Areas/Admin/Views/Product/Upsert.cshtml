@@ -17,41 +17,48 @@
         <form method="post" class="row" enctype="multipart/form-data">
             <input type="number" asp-for="Product.Id" hidden>
             <div class="border p-3 mt-4">
-               <div class=" py-2 col-12 mb-3">
-                    <label for="Title" class="form-label text-muted">Product Title</label>
-                    <input type="text" class="form-control shadow" asp-for="Product.Title">
-                    <span asp-validation-for="Product.Title" class="text-danger"></span>
-                </div>
+                <div class="row">
+                    <div class="col-8">
+                       <div class=" py-2 col-12 mb-3">
+                            <label for="Title" class="form-label text-muted">Product Title</label>
+                            <input type="text" class="form-control shadow" asp-for="Product.Title">
+                            <span asp-validation-for="Product.Title" class="text-danger"></span>
+                        </div>
 
-                <div class=" py-2 col-12 mb-3">
-                    <label asp-for="Product.Description" class="form-label text-muted"></label>
-                    <textarea type="text" class="form-control shadow" asp-for="Product.Description" rows="4"></textarea>
+                        <div class=" py-2 col-12 mb-3">
+                            <label asp-for="Product.Description" class="form-label text-muted"></label>
+                            <textarea type="text" class="form-control shadow" asp-for="Product.Description" rows="4"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="col-4">
+                        <img src="@Model.Product.ImageUrl" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9" />
+                        <div class=" py-2  mb-3">
+                            <label asp-for="Product.ImageUrl" class="form-label text-muted">Image Url</label>
+                            <input type="file" name="file" class="form-control shadow" asp-for="Product.ImageUrl">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
-                    <div class=" py-2 col-4 mb-3">
+                    <div class=" py-2 col-4 mb-4">
                         <label for="Author" class="form-label text-muted"> Author</label>
                         <input type="text" class="form-control shadow" asp-for="Product.Author">
                         <span asp-validation-for="Product.Author" class="text-danger"></span>
                     </div>
 
-                    <div class=" py-2 col-4 mb-3">
+                    <div class=" py-2 col-4 mb-4">
                         <label asp-for="Product.ISBN" class="form-label text-muted"></label>
                         <input type="text" class="form-control shadow" asp-for="Product.ISBN">
                         <span asp-validation-for="Product.ISBN" class="text-danger"></span>
                     </div>
 
-                    <div class=" py-2 col-4 mb-3">
+                    <div class=" py-2 col-4 mb-4">
                         <label asp-for="Product.CategoryId" class="form-label text-muted">Category</label>
                         <select class="form-select  shadow" asp-for="Product.CategoryId" asp-items="@Model.CategoryList">
                             <option disabled selected>--Select Category--</option>
                         </select>
                         <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
-                    </div>
-
-                    <div class=" py-2 col-4 mb-3">
-                        <label asp-for="Product.ImageUrl" class="form-label text-muted">Image Url</label>
-                        <input type="file" class="form-control shadow" asp-for="Product.ImageUrl">
                     </div>
                 </div>
 
