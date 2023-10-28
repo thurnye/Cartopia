@@ -1,4 +1,4 @@
-﻿using RetWeb.Models.Models;
+﻿using RetWeb.Models;
 
 namespace RetWeb.DataAccess.IRepository
 {

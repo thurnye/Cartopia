@@ -1,6 +1,6 @@
 ﻿using RetWeb.DataAccess.Data;
 using RetWeb.DataAccess.IRepository;
-using RetWeb.Models.Models;
+using RetWeb.Models;
 
 namespace RetWeb.DataAccess.Repository
 {
@@ -16,7 +16,7 @@ namespace RetWeb.DataAccess.Repository
 
         public void Update(Product obj)
         {
-            _db.Product.Update(obj);
+            _db.Products.Update(obj);
         }
     }
 }

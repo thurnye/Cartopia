@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RetWeb.Models.Models
+namespace RetWeb.Models
 {
     public class Product
     {
@@ -45,7 +40,7 @@ namespace RetWeb.Models.Models
         /// Price of the product
         /// </summary>
         [Required]
-        [Display( Name = "List Price")]
+        [Display(Name = "List Price")]
         [Range(1, 1000)]
         public double ListPrice { get; set; }
 

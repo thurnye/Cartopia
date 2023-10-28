@@ -2,7 +2,6 @@
 
 using Microsoft.EntityFrameworkCore;
 using RetWeb.Models;
-using RetWeb.Models.Models;
 
 namespace RetWeb.DataAccess.Data
 {
@@ -17,7 +16,7 @@ namespace RetWeb.DataAccess.Data
         /// </summary>
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Product> Product { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

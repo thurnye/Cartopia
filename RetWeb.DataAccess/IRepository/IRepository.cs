@@ -6,9 +6,9 @@ namespace RetWeb.DataAccess.IRepository
     {                                               //T- Category or any other generic model which we want to perform the operation or want to interact with the dbContext
                                                     // this will be a generic Interface Repository for the app
         /// <summary>
-        /// Get all categories
+        /// Get all entities
         /// </summary>
-        /// <returns> list of all categories</returns>
+        /// <returns> list of all entities</returns>
         IEnumerable<T> GetAll();
 
 

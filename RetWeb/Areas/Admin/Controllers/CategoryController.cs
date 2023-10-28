@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RetWeb.DataAccess.Data;
 using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
 
