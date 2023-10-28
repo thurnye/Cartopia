@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace RetWeb.Models
 {
@@ -74,6 +75,7 @@ namespace RetWeb.Models
         /// </summary>
         public int CategoryId { get; set; } //we need to tell the table that this is a foreign key explicitly adding a navigation property to the category table on the nxt line
         [ForeignKey("CategoryId")] // this helps us to indicate that this category table has a foreign key which is categoryId
+        [ValidateNever]
         public Category Category { get; set; }
 
         /// <summary>
