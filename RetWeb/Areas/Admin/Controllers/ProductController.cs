@@ -31,7 +31,7 @@ namespace RetWeb.Areas.Admin.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll().Where(c => c.IsDeleted == false).ToList();  // retrieve the list
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(c => c.IsDeleted == false).ToList();  // retrieve the list
            return View(objProductList);
         }
 

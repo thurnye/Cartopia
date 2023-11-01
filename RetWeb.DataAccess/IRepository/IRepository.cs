@@ -9,7 +9,7 @@ namespace RetWeb.DataAccess.IRepository
         /// Get all entities
         /// </summary>
         /// <returns> list of all entities</returns>
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string? includeProperties = null);
 
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace RetWeb.DataAccess.IRepository
         /// // here we pass a function that returns a boolean.
         // we choose this to be more flexible in what parameter we choose to pass for an individual record.
         // think about it like the same syntax as FirstOrDefault
-        T Get(Expression<Func<T, bool>> filter);
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
 
         /// <summary>
         /// Add method
