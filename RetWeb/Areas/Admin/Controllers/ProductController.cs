@@ -106,10 +106,13 @@ namespace RetWeb.Areas.Admin.Controllers
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                 string productPath = Path.Combine(wwwRootPath, @"images\product");
-                if(!string.IsNullOrEmpty(obj.Product.ImageUrl)) // we are uploading a new image
+
+                var existingProduct = _unitOfWork.Product.Get(u => u.Id == obj.Product.Id);
+
+                if (!string.IsNullOrEmpty(existingProduct.ImageUrl)) // we are uploading a new image
                 { 
                     //delete the old image
-                    var oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
+                    var oldImagePath = Path.Combine(wwwRootPath, existingProduct.ImageUrl.TrimStart('\\'));
                     if(System.IO.File.Exists(oldImagePath))
                     {
                         System.IO.File.Delete(oldImagePath); // delete file if file exist while updating
