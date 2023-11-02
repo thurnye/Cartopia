@@ -167,54 +167,36 @@ namespace RetWeb.Areas.Admin.Controllers
             return RedirectToAction("Index", "Product");
         }
 
-
-        /// <summary>
-        /// Get Delete a Product UI
-        /// <param name="id"></param>
-        /// </summary>
-        /// <returns> Delete Page </returns>
-        public IActionResult Delete(int? id)
+        // we create a region that handles our api calls 
+        #region API Calls   
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            if (id == null || id == 0)
-            {
-                return View();
-            }
-
-
-            Product? Product = _unitOfWork.Product.Get(u => u.Id == id);
-            if (Product == null)
-            {
-                return NotFound();
-            }
-
-            return View(Product);
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(c => c.IsDeleted == false).ToList();  // retrieve the list
+            return Json(new { data = objProductList});
         }
-
-
 
         /// <summary>
         /// Delete a Product
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int? id)
+        [HttpDelete]
+        public IActionResult Delete(int? id)
         {
-
             Product? obj = _unitOfWork.Product.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            //_unitOfWork.Product.Remove(obj);
             obj.IsDeleted = true;
 
             _unitOfWork.Product.Update(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Deleted " + obj.Title + " Product Successfully.";
-            ;
-            return RedirectToAction("Index", "Product");
+            string msg = "Deleted " + obj.Title + " Product Successfully.";
+            return Json(new { success = true, message = msg });
         }
+        #endregion
 
     }
 }
