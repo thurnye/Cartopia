@@ -115,6 +115,27 @@ namespace RetWeb.Areas.Identity.Pages.Account
             /// </summary>
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList {  get; set; }
+
+            /// <summary>
+            /// FirstName
+            /// </summary>
+            [Required]
+            public string FirstName { get; set; }
+
+            /// <summary>
+            /// LastName
+            /// </summary>
+            [Required]
+            public string LastName { get; set; }
+
+            /// <summary>
+            /// Street Address
+            /// </summary>
+            public string? Street { get; set; }
+            public string? City { get; set; }
+            public string? State { get; set; }
+            public string? PostalCode { get; set; }
+            public string? PhoneNumber { get; set; }
         }
 
         /// <summary>
@@ -160,6 +181,14 @@ namespace RetWeb.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.State = Input.State;
+                user.Street = Input.Street;
+                user.City = Input.City; 
+                user.PostalCode = Input.PostalCode;
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
