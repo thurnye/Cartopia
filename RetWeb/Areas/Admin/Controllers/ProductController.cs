@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
 using RetWeb.Models.ViewModels;
+using RetWeb.Utility;
 
 namespace RetWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]   //add authorization for only admin access to routes/pages
     public class ProductController : Controller
     {
         /// <summary>
