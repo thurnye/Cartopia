@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
+using RetWeb.Utility;
 
 namespace RetWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]   //add authorization for only admin access to routes/pages
     public class CategoryController : Controller
     {
         /// <summary>

@@ -1,11 +1,14 @@
 ﻿//Basic Configuration needed for Entity Framework
 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RetWeb.Models;
+using RetWeb.Models.Models;
 
 namespace RetWeb.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser> //to implement the identity, we need to implement the IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -18,8 +21,12 @@ namespace RetWeb.DataAccess.Data
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<ApplicationUser> Users {  get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {   
+            base.OnModelCreating(modelBuilder); //avoids the IdentityDbContext Primary key error
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
                 new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
