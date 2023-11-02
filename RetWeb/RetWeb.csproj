@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RetWeb.DataAccess\RetWeb.DataAccess.csproj" />
     <ProjectReference Include="..\RetWeb.Models\RetWeb.Models.csproj" />
+    <ProjectReference Include="..\RetWeb.Utility\RetWeb.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
