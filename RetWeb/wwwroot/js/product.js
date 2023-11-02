@@ -39,11 +39,11 @@ const loadDataTable = () => {
                 "width": "25%",
                 "render": (data) => {
                     return `<div class="w-75 btn-group" role="group">
-                                <a href = "/admin/product/upsert?id=${data}" asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                    <i class="bi bi-pencil-square"></i> Edit
+                                <a href = "/admin/product/upsert?id=${data}" asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class=" mx-2">
+                                    <i class="bi bi-pencil-square"></i> 
                                 </a>
-                                <a onClick = Delete("/admin/product/delete/${data}") asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
-                                    <i class="bi bi-trash-fill"></i> Delete
+                                <a onClick = Delete("/admin/product/delete/${data}") asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="mx-2" style="color: salmon;">
+                                    <i class="bi bi-trash-fill" ></i>
                                 </a>
                             </div>`
                 }
