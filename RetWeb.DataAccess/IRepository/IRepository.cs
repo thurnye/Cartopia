@@ -8,6 +8,7 @@ namespace RetWeb.DataAccess.IRepository
         /// <summary>
         /// Get all entities
         /// </summary>
+        /// <param name="includeProperties"></param>
         /// <returns> list of all entities</returns>
         IEnumerable<T> GetAll(string? includeProperties = null);
 
@@ -15,6 +16,7 @@ namespace RetWeb.DataAccess.IRepository
         /// <summary>
         ///  Get a single category
         /// </summary>
+        ///<param name="includeProperties"></param>
         /// <returns>single category</returns>
         /// // here we pass a function that returns a boolean.
         // we choose this to be more flexible in what parameter we choose to pass for an individual record.
