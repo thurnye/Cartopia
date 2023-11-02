@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace RetWeb.DataAccess.IRepository
 {
@@ -11,10 +6,10 @@ namespace RetWeb.DataAccess.IRepository
     {                                               //T- Category or any other generic model which we want to perform the operation or want to interact with the dbContext
                                                     // this will be a generic Interface Repository for the app
         /// <summary>
-        /// Get all categories
+        /// Get all entities
         /// </summary>
-        /// <returns> list of all categories</returns>
-        IEnumerable<T> GetAll();
+        /// <returns> list of all entities</returns>
+        IEnumerable<T> GetAll(string? includeProperties = null);
 
 
         /// <summary>
@@ -24,7 +19,7 @@ namespace RetWeb.DataAccess.IRepository
         /// // here we pass a function that returns a boolean.
         // we choose this to be more flexible in what parameter we choose to pass for an individual record.
         // think about it like the same syntax as FirstOrDefault
-        T Get(Expression<Func<T, bool>> filter);
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
 
         /// <summary>
         /// Add method

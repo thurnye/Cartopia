@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using RetWeb.DataAccess.Data;
 using RetWeb.DataAccess.IRepository;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace RetWeb.DataAccess.Repository    // this will be a generic Repository for the app, here we wont add the updates can be tailored to fit specific request
 {
@@ -20,8 +14,9 @@ namespace RetWeb.DataAccess.Repository    // this will be a generic Repository f
         public Repository(ApplicationDbContext db)
         {
             _db = db;
-            this.dbSet = _db.Set<T>();   
-        }
+            this.dbSet = _db.Set<T>();
+            _db.Products.Include(u => u.Category).Include(u => u.CategoryId);  // this will include all the categories with the respective foreign keys. The include can have more properties.
+        }                                                                       //in this case we want to include the Category or populate the data in category
 
         /// <summary>
         /// Add entity
@@ -40,21 +35,40 @@ namespace RetWeb.DataAccess.Repository    // this will be a generic Repository f
         /// <param name="filter"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public T Get(Expression<Func<T, bool>> filter)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;  
             query =  query.Where(filter);
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+
+                    query = query.Include(includeProp);
+                }
+            }
             return query.FirstOrDefault();
         }
 
+       
         /// <summary>
-        /// Get All entity
+        /// Get all 
         /// </summary>
+        /// <param name="includeProperties"></param> the name of the property we want to populate
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
+            if(!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ','}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    
+                query = query.Include(includeProp);
+                }
+            }
             return query.ToList();
         }
 

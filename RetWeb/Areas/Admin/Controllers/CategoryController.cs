@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RetWeb.DataAccess.Data;
 using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
 
@@ -29,7 +28,7 @@ namespace RetWeb.Areas.Admin.Controllers
         /// <param name="id"></param>
         /// </summary>
         /// <returns> the view page for create or edit </returns>
-        public IActionResult CreateAndEdit(int? id)
+        public IActionResult Upsert(int? id)
         {
             if (id == null || id == 0)
             {
@@ -54,7 +53,7 @@ namespace RetWeb.Areas.Admin.Controllers
         /// <param name="obj"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult CreateAndEdit(Category obj)
+        public IActionResult Upsert(Category obj)
         {
             // Check if the ModelState is valid before proceeding
             if (!ModelState.IsValid)
