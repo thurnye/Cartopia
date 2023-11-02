@@ -1,12 +1,13 @@
 ﻿//Basic Configuration needed for Entity Framework
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RetWeb.Models;
 
 namespace RetWeb.DataAccess.Data
 {
-    public class ApplicationDbContext : IdentityDbContext //to implement the identity, we need to implement the IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser> //to implement the identity, we need to implement the IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
