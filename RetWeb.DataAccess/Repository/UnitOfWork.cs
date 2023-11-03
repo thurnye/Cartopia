@@ -26,6 +26,11 @@ namespace RetWeb.DataAccess.Repository
         /// Company
         /// </summary>
         public ICompanyRepository Company { get; private set; }
+        
+        /// <summary>
+        /// ShoppingCart
+        /// </summary>
+        public IShoppingCartRepository ShoppingCart { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -33,6 +38,7 @@ namespace RetWeb.DataAccess.Repository
             Category = new CategoryRepository(_db);
             Product = new ProductRepository(_db);
             Company = new CompanyRepository(_db);
+            ShoppingCart = new ShoppingCartRepository(_db);
         }
         public void Save()
         {

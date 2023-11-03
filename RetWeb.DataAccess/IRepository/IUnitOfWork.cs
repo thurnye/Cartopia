@@ -19,6 +19,11 @@ namespace RetWeb.DataAccess.IRepository
         /// </summary>
         ICompanyRepository Company { get; }
 
+        /// <summary>
+        /// ShoppingCarty 
+        /// </summary>
+        IShoppingCartRepository ShoppingCart { get; }
+
         void Save();
     }
 }
