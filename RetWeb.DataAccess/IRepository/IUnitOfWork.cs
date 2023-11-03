@@ -14,6 +14,11 @@ namespace RetWeb.DataAccess.IRepository
         /// </summary>
         IProductRepository Product { get; }
 
+        /// <summary>
+        /// Company 
+        /// </summary>
+        ICompanyRepository Company { get; }
+
         void Save();
     }
 }

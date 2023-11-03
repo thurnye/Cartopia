@@ -17,3 +17,14 @@ namespace RetWeb.Utility
         public const string Role_Employee = "Employee";
     }
 }
+
+
+//Customer is the basic customer who comes to the website, creates an account and places an order
+
+//Company is similar to customer but they do not have to make the payment right away, they have upto 30 days to make the payment  after the order has been placed. 
+//They can only be registered by and admin or employee user.
+
+//Employee has access to modify the shipping of the product and other details.
+
+//Admin performs the CRUD on all contents and managements
+
