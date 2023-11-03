@@ -5,6 +5,12 @@ namespace RetWeb.DataAccess.IRepository
     public interface IUnitOfWork
     {
         /// <summary>
+        /// User 
+        /// </summary>
+        IUserRepository User { get; }
+
+
+        /// <summary>
         /// Category 
         /// </summary>
         ICategoryRepository Category { get; }

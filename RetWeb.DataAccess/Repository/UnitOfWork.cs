@@ -12,6 +12,13 @@ namespace RetWeb.DataAccess.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
+
+
+        /// <summary>
+        /// ApplicationUser 
+        /// </summary>
+        public IUserRepository User { get; set; }
+
         /// <summary>
         /// Category
         /// </summary>
@@ -35,6 +42,7 @@ namespace RetWeb.DataAccess.Repository
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
+            User = new UserRepository(_db);
             Category = new CategoryRepository(_db);
             Product = new ProductRepository(_db);
             Company = new CompanyRepository(_db);
