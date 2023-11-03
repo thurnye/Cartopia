@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using RetWeb.Models.Models;
 
 namespace RetWeb.Models
 {
@@ -18,7 +19,7 @@ namespace RetWeb.Models
         /// The quantity
         /// </summary>
         [Range(1, 1000, ErrorMessage ="Please enter a value between 1 and 1000" )]
-        public int count { get; set; }
+        public int Count { get; set; }
 
 
         /// <summary>
@@ -27,14 +28,15 @@ namespace RetWeb.Models
         [ForeignKey("ProductId")]
         [ValidateNever]
         public int ProductId { get; set; }
-
+        public Product Product { get; set; }
 
         /// <summary>
         /// The ApplicationUserId
         /// </summary>
-        [ForeignKey("ProductId")]
+        [ForeignKey("ApplicationUserId")]
         [ValidateNever]
         public string UserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         public bool IsDeleted { get; set; } = false;
     }

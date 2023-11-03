@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
+using RetWeb.Models.ViewModels;
 using System.Diagnostics;
 
 namespace RetWeb.Areas.Customer.Controllers
@@ -35,7 +36,15 @@ namespace RetWeb.Areas.Customer.Controllers
         public IActionResult Details(int productId)
         {
             Product product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category");
-            return View(product);
+
+            ShoppingCart cart = new()  //To adjust the Detail page to be able to send in the quantity for specific product, we have to modify the 
+                                       //to use ShoppingCart.
+            {
+                Product = product,
+                Count = 1,
+                ProductId = productId
+            };
+            return View(cart);
         }
 
         public IActionResult Privacy()
