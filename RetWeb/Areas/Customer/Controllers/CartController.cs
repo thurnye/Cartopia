@@ -48,13 +48,16 @@ namespace RetWeb.Areas.Customer.Controllers
             {
                 return shoppingCart.Product.Price;
             }
-            else if (shoppingCart.Count <= 100)
-            {
-                return shoppingCart.Product.Price50;
-            }
             else
             {
-                return shoppingCart.Product.Price100;
+                if (shoppingCart.Count <= 100)
+                {
+                    return shoppingCart.Product.Price50;
+                }
+                else
+                {
+                    return shoppingCart.Product.Price100;
+                }
             }
         }
     }
