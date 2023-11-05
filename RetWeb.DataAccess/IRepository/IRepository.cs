@@ -10,7 +10,7 @@ namespace RetWeb.DataAccess.IRepository
         /// </summary>
         /// <param name="includeProperties"></param>
         /// <returns> list of all entities</returns>
-        IEnumerable<T> GetAll(string? includeProperties = null);
+        IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
 
 
         /// <summary>

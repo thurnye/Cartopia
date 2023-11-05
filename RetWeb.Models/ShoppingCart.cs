@@ -39,5 +39,8 @@ namespace RetWeb.Models
         public ApplicationUser ApplicationUser { get; set; }
 
         public bool IsDeleted { get; set; } = false;
+
+        [NotMapped]  //for display purpose
+        public double Price { get; set; }
     }
 }
