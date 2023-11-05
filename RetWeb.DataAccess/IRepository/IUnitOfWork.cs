@@ -5,6 +5,12 @@ namespace RetWeb.DataAccess.IRepository
     public interface IUnitOfWork
     {
         /// <summary>
+        /// User 
+        /// </summary>
+        IUserRepository User { get; }
+
+
+        /// <summary>
         /// Category 
         /// </summary>
         ICategoryRepository Category { get; }
@@ -18,6 +24,11 @@ namespace RetWeb.DataAccess.IRepository
         /// Company 
         /// </summary>
         ICompanyRepository Company { get; }
+
+        /// <summary>
+        /// ShoppingCarty 
+        /// </summary>
+        IShoppingCartRepository ShoppingCart { get; }
 
         void Save();
     }

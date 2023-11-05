@@ -35,10 +35,18 @@ namespace RetWeb.DataAccess.Repository    // this will be a generic Repository f
         /// <param name="filter"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
-            IQueryable<T> query = dbSet;  
-            query =  query.Where(filter);
+            IQueryable<T> query;
+
+            if (tracked){
+                 query = dbSet;
+            }
+            else{
+                query = dbSet.AsNoTracking();
+            }
+
+            query = query.Where(filter);
             if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties
@@ -49,6 +57,7 @@ namespace RetWeb.DataAccess.Repository    // this will be a generic Repository f
                 }
             }
             return query.FirstOrDefault();
+
         }
 
        
@@ -57,9 +66,13 @@ namespace RetWeb.DataAccess.Repository    // this will be a generic Repository f
         /// </summary>
         /// <param name="includeProperties"></param> the name of the property we want to populate
         /// <returns></returns>
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
             if(!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties

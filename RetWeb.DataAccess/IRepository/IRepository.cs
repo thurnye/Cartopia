@@ -10,7 +10,7 @@ namespace RetWeb.DataAccess.IRepository
         /// </summary>
         /// <param name="includeProperties"></param>
         /// <returns> list of all entities</returns>
-        IEnumerable<T> GetAll(string? includeProperties = null);
+        IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
 
 
         /// <summary>
@@ -21,7 +21,8 @@ namespace RetWeb.DataAccess.IRepository
         /// // here we pass a function that returns a boolean.
         // we choose this to be more flexible in what parameter we choose to pass for an individual record.
         // think about it like the same syntax as FirstOrDefault
-        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
+        //the tracked stops EF from tracking items retrieved from the db, so we can either update it or not.
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked= false);
 
         /// <summary>
         /// Add method

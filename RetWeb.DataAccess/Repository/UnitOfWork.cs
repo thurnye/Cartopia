@@ -12,6 +12,13 @@ namespace RetWeb.DataAccess.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
+
+
+        /// <summary>
+        /// ApplicationUser 
+        /// </summary>
+        public IUserRepository User { get; set; }
+
         /// <summary>
         /// Category
         /// </summary>
@@ -26,13 +33,20 @@ namespace RetWeb.DataAccess.Repository
         /// Company
         /// </summary>
         public ICompanyRepository Company { get; private set; }
+        
+        /// <summary>
+        /// ShoppingCart
+        /// </summary>
+        public IShoppingCartRepository ShoppingCart { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
+            User = new UserRepository(_db);
             Category = new CategoryRepository(_db);
             Product = new ProductRepository(_db);
             Company = new CompanyRepository(_db);
+            ShoppingCart = new ShoppingCartRepository(_db);
         }
         public void Save()
         {

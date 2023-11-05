@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Company\**" />
     <Compile Remove="Controllers\**" />
+    <Content Remove="Areas\Company\**" />
     <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Areas\Company\**" />
     <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Areas\Company\**" />
     <None Remove="Controllers\**" />
   </ItemGroup>
 
@@ -33,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Company\Controllers\" />
     <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 
