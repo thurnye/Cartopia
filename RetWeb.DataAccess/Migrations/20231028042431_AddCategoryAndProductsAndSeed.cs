@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace RetWeb.DataAccess.Migrations
+namespace Cartopia.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryAndProductsAndSeed : Migration

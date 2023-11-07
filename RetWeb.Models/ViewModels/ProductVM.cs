@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace RetWeb.Models.ViewModels
+namespace Cartopia.Models.ViewModels
 {
     public class ProductVM
     {

@@ -32,13 +32,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RetWeb.DataAccess\RetWeb.DataAccess.csproj" />
-    <ProjectReference Include="..\RetWeb.Models\RetWeb.Models.csproj" />
-    <ProjectReference Include="..\RetWeb.Utility\RetWeb.Utility.csproj" />
+    <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\product\" />
+    <ProjectReference Include="..\RetWeb.DataAccess\Cartopia.DataAccess.csproj" />
+    <ProjectReference Include="..\RetWeb.Models\Cartopia.Models.csproj" />
+    <ProjectReference Include="..\RetWeb.Utility\Cartopia.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

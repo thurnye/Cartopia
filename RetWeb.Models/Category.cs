@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace RetWeb.Models
+namespace Cartopia.Models
 {
     public class Category
     {

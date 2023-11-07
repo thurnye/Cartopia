@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RetWeb.Utility
+namespace Cartopia.Utility
 {
 	public class StripeSettings
 	{

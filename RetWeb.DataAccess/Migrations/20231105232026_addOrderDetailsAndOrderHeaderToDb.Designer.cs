@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RetWeb.DataAccess.Data;
+using Cartopia.DataAccess.Data;
 
 #nullable disable
 
-namespace RetWeb.DataAccess.Migrations
+namespace Cartopia.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231105232026_addOrderDetailsAndOrderHeaderToDb")]
@@ -232,7 +232,7 @@ namespace RetWeb.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Category", b =>
+            modelBuilder.Entity("Cartopia.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -279,7 +279,7 @@ namespace RetWeb.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Company", b =>
+            modelBuilder.Entity("Cartopia.Models.Company", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,7 +314,7 @@ namespace RetWeb.DataAccess.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("RetWeb.Models.OrderDetail", b =>
+            modelBuilder.Entity("Cartopia.Models.OrderDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -343,7 +343,7 @@ namespace RetWeb.DataAccess.Migrations
                     b.ToTable("OrderDetail");
                 });
 
-            modelBuilder.Entity("RetWeb.Models.OrderHeader", b =>
+            modelBuilder.Entity("Cartopia.Models.OrderHeader", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -419,7 +419,7 @@ namespace RetWeb.DataAccess.Migrations
                     b.ToTable("OrderHeader");
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Product", b =>
+            modelBuilder.Entity("Cartopia.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -563,7 +563,7 @@ namespace RetWeb.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RetWeb.Models.ShoppingCart", b =>
+            modelBuilder.Entity("Cartopia.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -596,7 +596,7 @@ namespace RetWeb.DataAccess.Migrations
                     b.ToTable("ShoppingCart");
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Cartopia.Models.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -679,15 +679,15 @@ namespace RetWeb.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RetWeb.Models.OrderDetail", b =>
+            modelBuilder.Entity("Cartopia.Models.OrderDetail", b =>
                 {
-                    b.HasOne("RetWeb.Models.OrderHeader", "OrderHeader")
+                    b.HasOne("Cartopia.Models.OrderHeader", "OrderHeader")
                         .WithMany()
                         .HasForeignKey("OrderHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RetWeb.Models.Product", "Product")
+                    b.HasOne("Cartopia.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -698,18 +698,18 @@ namespace RetWeb.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("RetWeb.Models.OrderHeader", b =>
+            modelBuilder.Entity("Cartopia.Models.OrderHeader", b =>
                 {
-                    b.HasOne("RetWeb.Models.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("Cartopia.Models.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
 
                     b.Navigation("ApplicationUser");
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Product", b =>
+            modelBuilder.Entity("Cartopia.Models.Product", b =>
                 {
-                    b.HasOne("RetWeb.Models.Category", "Category")
+                    b.HasOne("Cartopia.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -718,13 +718,13 @@ namespace RetWeb.DataAccess.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("RetWeb.Models.ShoppingCart", b =>
+            modelBuilder.Entity("Cartopia.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("RetWeb.Models.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("Cartopia.Models.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("RetWeb.Models.Product", "Product")
+                    b.HasOne("Cartopia.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -735,9 +735,9 @@ namespace RetWeb.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Cartopia.Models.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("RetWeb.Models.Company", "Company")
+                    b.HasOne("Cartopia.Models.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId");
 

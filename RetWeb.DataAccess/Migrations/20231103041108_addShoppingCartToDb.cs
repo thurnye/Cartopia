@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace RetWeb.DataAccess.Migrations
+namespace Cartopia.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class addShoppingCartToDb : Migration

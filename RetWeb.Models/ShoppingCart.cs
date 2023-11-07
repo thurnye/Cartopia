@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using RetWeb.Models.Models;
+using Cartopia.Models.Models;
 
-namespace RetWeb.Models
+namespace Cartopia.Models
 {
     public class ShoppingCart
     {

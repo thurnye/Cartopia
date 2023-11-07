@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RetWeb.Models.Models
+namespace Cartopia.Models.Models
 {
     public class ApplicationUser : IdentityUser
     {

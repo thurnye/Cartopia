@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
-using RetWeb.DataAccess.IRepository;
-using RetWeb.Models;
-using RetWeb.Models.ViewModels;
+using Cartopia.DataAccess.IRepository;
+using Cartopia.Models;
+using Cartopia.Models.ViewModels;
 using System.Diagnostics;
 using System.Security.Claims;
 
-namespace RetWeb.Areas.Customer.Controllers
+namespace Cartopia.Areas.Customer.Controllers
 {
     [Area("Customer")]
     public class HomeController : Controller

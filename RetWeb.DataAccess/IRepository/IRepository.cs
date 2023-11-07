@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace RetWeb.DataAccess.IRepository
+namespace Cartopia.DataAccess.IRepository
 {
     public interface IRepository<T> where T : class  // since we are working with generic interface and do not know what the class Type will be we will give it a Type <T>
     {                                               //T- Category or any other generic model which we want to perform the operation or want to interact with the dbContext

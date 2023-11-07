@@ -1,6 +1,6 @@
-﻿using RetWeb.Models;
+﻿using Cartopia.Models;
 
-namespace RetWeb.DataAccess.IRepository
+namespace Cartopia.DataAccess.IRepository
 {
     public interface ICategoryRepository : IRepository<Category>   //this will implement the IRepository with the class Category, this will include the Update
                                                                    // and the save exclusively for the category repository

@@ -1,7 +1,7 @@
-﻿using RetWeb.Models;
-using RetWeb.Models.Models;
+﻿using Cartopia.Models;
+using Cartopia.Models.Models;
 
-namespace RetWeb.DataAccess.IRepository
+namespace Cartopia.DataAccess.IRepository
 {
     public interface IUserRepository : IRepository<ApplicationUser> 
     {

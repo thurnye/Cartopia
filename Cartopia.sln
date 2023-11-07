@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34212.112
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetWeb", "RetWeb\RetWeb.csproj", "{E9EAA612-9744-486E-BA59-B08E2FCE0980}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartopia", "RetWeb\Cartopia.csproj", "{E9EAA612-9744-486E-BA59-B08E2FCE0980}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetWeb.DataAccess", "RetWeb.DataAccess\RetWeb.DataAccess.csproj", "{279CD96C-A994-4C4B-8006-71C5A6A4700E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartopia.DataAccess", "RetWeb.DataAccess\Cartopia.DataAccess.csproj", "{279CD96C-A994-4C4B-8006-71C5A6A4700E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetWeb.Models", "RetWeb.Models\RetWeb.Models.csproj", "{799DD1F3-3822-490B-8506-F82A61D7962C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartopia.Models", "RetWeb.Models\Cartopia.Models.csproj", "{799DD1F3-3822-490B-8506-F82A61D7962C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetWeb.Utility", "RetWeb.Utility\RetWeb.Utility.csproj", "{EBBCE89B-1899-4D0C-9D80-990FDC6CC34C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartopia.Utility", "RetWeb.Utility\Cartopia.Utility.csproj", "{EBBCE89B-1899-4D0C-9D80-990FDC6CC34C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

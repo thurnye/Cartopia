@@ -1,6 +1,6 @@
 ﻿
 
-namespace RetWeb.DataAccess.IRepository
+namespace Cartopia.DataAccess.IRepository
 {
     public interface IUnitOfWork
     {

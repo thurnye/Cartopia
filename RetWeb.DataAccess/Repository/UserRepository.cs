@@ -1,10 +1,10 @@
 ﻿
-using RetWeb.DataAccess.Data;
-using RetWeb.DataAccess.IRepository;
-using RetWeb.Models;
-using RetWeb.Models.Models;
+using Cartopia.DataAccess.Data;
+using Cartopia.DataAccess.IRepository;
+using Cartopia.Models;
+using Cartopia.Models.Models;
 
-namespace RetWeb.DataAccess.Repository
+namespace Cartopia.DataAccess.Repository
 {
     //we already have the add, get, remove and removerange in the our generic repo, so we dont need them we need the base functionality 
     public class UserRepository : Repository<ApplicationUser>, IUserRepository

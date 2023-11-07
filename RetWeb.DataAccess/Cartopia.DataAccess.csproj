@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RetWeb.Models\RetWeb.Models.csproj" />
+    <ProjectReference Include="..\RetWeb.Models\Cartopia.Models.csproj" />
+    <ProjectReference Include="..\RetWeb.Utility\Cartopia.Utility.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RetWeb.DataAccess.IRepository;
-using RetWeb.Models;
-using RetWeb.Models.ViewModels;
-using RetWeb.Utility;
+using Cartopia.DataAccess.IRepository;
+using Cartopia.Models;
+using Cartopia.Models.ViewModels;
+using Cartopia.Utility;
 using Stripe.Checkout;
 using Stripe;
 using System.Security.Claims;
 using static System.Net.WebRequestMethods;
 
 
-namespace RetWeb.Areas.Customer.Controllers
+namespace Cartopia.Areas.Customer.Controllers
 {
     [Area("Customer")]
     [Authorize]

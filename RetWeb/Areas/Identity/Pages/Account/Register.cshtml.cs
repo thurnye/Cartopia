@@ -20,11 +20,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using RetWeb.DataAccess.IRepository;
-using RetWeb.Models.Models;
-using RetWeb.Utility;
+using Cartopia.DataAccess.IRepository;
+using Cartopia.Models.Models;
+using Cartopia.Utility;
 
-namespace RetWeb.Areas.Identity.Pages.Account
+namespace Cartopia.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

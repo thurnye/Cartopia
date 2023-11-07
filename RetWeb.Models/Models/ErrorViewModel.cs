@@ -1,4 +1,4 @@
-namespace RetWeb.Models
+namespace Cartopia.Models
 {
     public class ErrorViewModel
     {
