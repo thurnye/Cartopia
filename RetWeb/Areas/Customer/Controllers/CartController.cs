@@ -4,7 +4,10 @@ using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
 using RetWeb.Models.ViewModels;
 using RetWeb.Utility;
+using Stripe.Checkout;
+using Stripe;
 using System.Security.Claims;
+using static System.Net.WebRequestMethods;
 
 
 namespace RetWeb.Areas.Customer.Controllers
@@ -140,7 +143,42 @@ namespace RetWeb.Areas.Customer.Controllers
 			if (IsRegularCustomer)
 			{
                 //Capture payment  - Stripe
-				
+                var domain = "https://localhost:7146/"; //This should be changed for production
+                var options = new SessionCreateOptions
+                {
+                    SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
+                    CancelUrl = domain + "customer/cart/Index",
+					LineItems = new List<SessionLineItemOptions>(),
+					Mode = "payment",
+				};
+
+                foreach(var item in ShoppingCartVM.ShoppingCartList)
+                {
+                    var SessionLineItem = new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions()
+                        {
+                            UnitAmount = (long)(item.Price * 100),  //$20.50 => 2050
+                            Currency = "USD",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions()
+                            {
+                                Name = item.Product.Title,
+                            }
+                        },
+                        Quantity = item.Count
+                        
+                    };
+                    options.LineItems.Add(SessionLineItem); 
+				}
+
+				var service = new SessionService();
+				Session session = service.Create(options);
+
+                _unitOfWork.OrderHeader.UpdateStripePaymentID(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
+                _unitOfWork.Save();
+                Response.Headers.Add("Location", session.Url);  // add the payment url
+
+                return new StatusCodeResult(303);
 			}
 
             return RedirectToAction(nameof(OrderConfirmation), new {id = ShoppingCartVM.OrderHeader.Id});

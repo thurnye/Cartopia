@@ -45,7 +45,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe: SecretKey").Get<string>(); // set the configuration for stripe
+//Configure the Stripe API key
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>(); // set the configuration for stripe
 app.UseRouting();
 app.UseAuthentication(); // Add the authentication before authorization
 app.UseAuthorization();
