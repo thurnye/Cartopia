@@ -186,7 +186,31 @@ namespace RetWeb.Areas.Customer.Controllers
 
         public IActionResult OrderConfirmation(int id)
         {
-            return View(id);
+            //we want to confirm stripe Payment
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "User");
+            if(orderHeader.PaymentStatus != SD.PaymentStatusDelayedPayment)
+            {
+                //this is an order by customer, then we get the stripe payment details
+                var service = new SessionService();
+                Session session = service.Get(orderHeader.SessionId);   //we get the sessionId from stripe session
+
+                if(session.PaymentStatus.ToLower() == "paid")
+                {
+                    //we update the paymentIntentId
+					_unitOfWork.OrderHeader.UpdateStripePaymentID(id, session.Id, session.PaymentIntentId);
+                    //we update the orderStatus
+                    _unitOfWork.OrderHeader.UpdateStatus(id, SD.PaymentStatusApproved, SD.PaymentStatusApproved);
+					_unitOfWork.Save();
+				}
+			}
+            //Get the list of items in the shopping cart and remove them from db
+            List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart
+                .GetAll(u => u.UserId == orderHeader.UserId).ToList();
+            _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
+			_unitOfWork.Save();
+
+
+			return View(id);
         }
 
 
