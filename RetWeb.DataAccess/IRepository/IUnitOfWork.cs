@@ -30,6 +30,16 @@ namespace RetWeb.DataAccess.IRepository
         /// </summary>
         IShoppingCartRepository ShoppingCart { get; }
 
+        /// <summary>
+        /// OrderHeader 
+        /// </summary>
+        IOrderHeaderRepository OrderHeader { get; }
+
+        /// <summary>
+        /// OrderDetail 
+        /// </summary>
+        IOrderDetailRepository OrderDetail { get; }
+
         void Save();
     }
 }

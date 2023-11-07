@@ -19,12 +19,35 @@ namespace RetWeb.DataAccess.Data
         /// </summary>
         public DbSet<Category> Categories { get; set; }
 
+        /// <summary>
+        /// db set for Products
+        /// </summary>
         public DbSet<Product> Products { get; set; }
 
+        /// <summary>
+        /// db set for Users
+        /// </summary>
         public DbSet<ApplicationUser> Users {  get; set; }
 
+        /// <summary>
+        /// db set for Companies
+        /// </summary>
         public DbSet<Company> Companies { get; set; }
+
+        /// <summary>
+        /// db set for ShoppingCart
+        /// </summary>
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
+
+        /// <summary>
+        /// db set for OrderDetail
+        /// </summary>
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        /// <summary>
+        /// db set for OrderDetail
+        /// </summary>
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   

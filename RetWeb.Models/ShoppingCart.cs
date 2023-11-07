@@ -33,10 +33,10 @@ namespace RetWeb.Models
         /// <summary>
         /// The ApplicationUserId
         /// </summary>
-        [ForeignKey("ApplicationUserId")]
+        [ForeignKey("UserId")]
         [ValidateNever]
         public string UserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser User { get; set; }
 
         public bool IsDeleted { get; set; } = false;
 
