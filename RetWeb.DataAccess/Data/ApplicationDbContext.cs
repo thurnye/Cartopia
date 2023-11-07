@@ -3,10 +3,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RetWeb.Models;
-using RetWeb.Models.Models;
+using Cartopia.Models;
+using Cartopia.Models.Models;
 
-namespace RetWeb.DataAccess.Data
+namespace Cartopia.DataAccess.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser> //to implement the identity, we need to implement the IdentityDbContext
     {

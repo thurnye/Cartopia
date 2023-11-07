@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RetWeb.Models.ViewModels
+namespace Cartopia.Models.ViewModels
 {
     public class ShoppingCartVM
     {

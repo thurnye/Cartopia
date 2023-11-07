@@ -1,6 +1,6 @@
-﻿using RetWeb.Models;
+﻿using Cartopia.Models;
 
-namespace RetWeb.DataAccess.IRepository
+namespace Cartopia.DataAccess.IRepository
 {
     public interface IOrderDetailRepository : IRepository<OrderDetail>   //this will implement the IRepository with the class OrderDetail, this will include the Update
                                                                    // and the save exclusively for the OrderDetail repository

@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using RetWeb.DataAccess.Data;
-using RetWeb.DataAccess.IRepository;
+using Cartopia.DataAccess.Data;
+using Cartopia.DataAccess.IRepository;
 
-namespace RetWeb.DataAccess.Repository    // this will be a generic Repository for the app, here we wont add the updates can be tailored to fit specific request
+namespace Cartopia.DataAccess.Repository    // this will be a generic Repository for the app, here we wont add the updates can be tailored to fit specific request
 {
 
     public class Repository<T> : IRepository<T> where T : class   

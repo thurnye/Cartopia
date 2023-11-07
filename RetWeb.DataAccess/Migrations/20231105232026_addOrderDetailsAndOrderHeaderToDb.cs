@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace RetWeb.DataAccess.Migrations
+namespace Cartopia.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class addOrderDetailsAndOrderHeaderToDb : Migration

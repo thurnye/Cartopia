@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using RetWeb.DataAccess.IRepository;
-using RetWeb.Models;
-using RetWeb.Models.ViewModels;
-using RetWeb.Utility;
+using Cartopia.DataAccess.IRepository;
+using Cartopia.Models;
+using Cartopia.Models.ViewModels;
+using Cartopia.Utility;
 
-namespace RetWeb.Areas.Admin.Controllers
+namespace Cartopia.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]   //add authorization for only admin access to routes/pages

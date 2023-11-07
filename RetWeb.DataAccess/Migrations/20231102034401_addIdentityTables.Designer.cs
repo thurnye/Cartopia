@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RetWeb.DataAccess.Data;
+using Cartopia.DataAccess.Data;
 
 #nullable disable
 
-namespace RetWeb.DataAccess.Migrations
+namespace Cartopia.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231102034401_addIdentityTables")]
@@ -227,7 +227,7 @@ namespace RetWeb.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Category", b =>
+            modelBuilder.Entity("Cartopia.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -274,7 +274,7 @@ namespace RetWeb.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Product", b =>
+            modelBuilder.Entity("Cartopia.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -469,9 +469,9 @@ namespace RetWeb.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RetWeb.Models.Product", b =>
+            modelBuilder.Entity("Cartopia.Models.Product", b =>
                 {
-                    b.HasOne("RetWeb.Models.Category", "Category")
+                    b.HasOne("Cartopia.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
