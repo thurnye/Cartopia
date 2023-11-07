@@ -43,10 +43,10 @@ namespace RetWeb.Models
         public string? PaymentIntentId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         [Required]
         public string? Street { get; set; }
@@ -56,6 +56,9 @@ namespace RetWeb.Models
 
         [Required]
         public string? State { get; set; }
+
+        [Required]
+        public string? Country { get; set; }
 
         [Required]
         public string? PostalCode { get; set; }

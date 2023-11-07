@@ -23,20 +23,19 @@ namespace RetWeb.Areas.Customer.Controllers
         }
         public IActionResult Index()
         {
-            //to get the loginIn User, use use the claimsIdentity, which has the nameIdentifer which will have the userId of the user
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;    // this will retrieve the userId
+            var userId = GetUserId();
 
             ShoppingCartVM = new ShoppingCartVM
             {
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.UserId == userId, includeProperties: "Product"),
+                OrderHeader = new()
 
             };
 
             foreach (var cart in ShoppingCartVM.ShoppingCartList)
             {
                 cart.Price = GetPRiceBasedOnQuantity(cart);
-                ShoppingCartVM.OrderTotal += (cart.Price * cart.Count);
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
             }
 
             return View(ShoppingCartVM);
@@ -44,7 +43,36 @@ namespace RetWeb.Areas.Customer.Controllers
 
         public IActionResult Summary()
         {
-            return View();
+            var userId = GetUserId();   
+
+            ShoppingCartVM = new ShoppingCartVM
+            {
+                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.UserId == userId, includeProperties: "Product"),
+                OrderHeader = new()
+
+            };
+
+            //populate the User
+            ShoppingCartVM.OrderHeader.User = _unitOfWork.User.Get(u => u.Id == userId);
+            string name = ShoppingCartVM.OrderHeader.User.FirstName + " " + ShoppingCartVM.OrderHeader.User.FirstName;
+            
+            // update the OrderHeader
+            ShoppingCartVM.OrderHeader.Name = name;
+            ShoppingCartVM.OrderHeader.PhoneNumber = ShoppingCartVM.OrderHeader.User.PhoneNumber;
+            ShoppingCartVM.OrderHeader.Street = ShoppingCartVM.OrderHeader.User.Street;
+            ShoppingCartVM.OrderHeader.City = ShoppingCartVM.OrderHeader.User.City;
+            ShoppingCartVM.OrderHeader.State = ShoppingCartVM.OrderHeader.User.State;
+            ShoppingCartVM.OrderHeader.Country = ShoppingCartVM.OrderHeader.User.Country;
+            ShoppingCartVM.OrderHeader.PostalCode = ShoppingCartVM.OrderHeader.User.PostalCode;
+
+
+
+            foreach (var cart in ShoppingCartVM.ShoppingCartList)
+            {
+                cart.Price = GetPRiceBasedOnQuantity(cart);
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+            }
+            return View(ShoppingCartVM);
         }
 
         public IActionResult Plus(int cartId)
@@ -99,5 +127,14 @@ namespace RetWeb.Areas.Customer.Controllers
                 }
             }
         }
+
+        private string GetUserId()
+        {
+            //to get the loginIn User, use use the claimsIdentity, which has the nameIdentifer which will have the userId of the user
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;    // this will retrieve the userId
+            return userId;
+        }
+
     }
 }
