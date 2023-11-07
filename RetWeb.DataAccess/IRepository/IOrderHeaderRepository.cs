@@ -10,6 +10,22 @@ namespace RetWeb.DataAccess.IRepository
         /// </summary>
         /// <param name="obj"></param>
         void Update(OrderHeader obj);
+
+        /// <summary>
+        /// Method for updating only payment status or order status
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="orderStatus"></param>
+        /// <param name="paymentStatus"></param>
+        void UpdateStatus(int id, string orderStatus, string? paymentStatus = null);
+
+        /// <summary>
+        /// Updating the stripe payment details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="sessionId"></param>
+        /// <param name="paymentIntentId"></param>
+        void UpdateStripePaymentID(int id, string sessionId, string? paymentIntentId);
         
     }
 }

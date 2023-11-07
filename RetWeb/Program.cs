@@ -6,6 +6,7 @@ using RetWeb.DataAccess.IRepository;
 using RetWeb.DataAccess.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//configure the program that secrets are injected inside the stripeSettings with their values
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
 //To add the role we have to customize the AddIdentity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); 
@@ -41,7 +45,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+//Configure the Stripe API key
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>(); // set the configuration for stripe
 app.UseRouting();
 app.UseAuthentication(); // Add the authentication before authorization
 app.UseAuthorization();

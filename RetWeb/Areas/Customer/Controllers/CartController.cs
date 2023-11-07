@@ -4,7 +4,10 @@ using RetWeb.DataAccess.IRepository;
 using RetWeb.Models;
 using RetWeb.Models.ViewModels;
 using RetWeb.Utility;
+using Stripe.Checkout;
+using Stripe;
 using System.Security.Claims;
+using static System.Net.WebRequestMethods;
 
 
 namespace RetWeb.Areas.Customer.Controllers
@@ -140,7 +143,42 @@ namespace RetWeb.Areas.Customer.Controllers
 			if (IsRegularCustomer)
 			{
                 //Capture payment  - Stripe
-				
+                var domain = "https://localhost:7146/"; //This should be changed for production
+                var options = new SessionCreateOptions
+                {
+                    SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
+                    CancelUrl = domain + "customer/cart/Index",
+					LineItems = new List<SessionLineItemOptions>(),
+					Mode = "payment",
+				};
+
+                foreach(var item in ShoppingCartVM.ShoppingCartList)
+                {
+                    var SessionLineItem = new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions()
+                        {
+                            UnitAmount = (long)(item.Price * 100),  //$20.50 => 2050
+                            Currency = "USD",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions()
+                            {
+                                Name = item.Product.Title,
+                            }
+                        },
+                        Quantity = item.Count
+                        
+                    };
+                    options.LineItems.Add(SessionLineItem); 
+				}
+
+				var service = new SessionService();
+				Session session = service.Create(options);
+
+                _unitOfWork.OrderHeader.UpdateStripePaymentID(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
+                _unitOfWork.Save();
+                Response.Headers.Add("Location", session.Url);  // add the payment url
+
+                return new StatusCodeResult(303);
 			}
 
             return RedirectToAction(nameof(OrderConfirmation), new {id = ShoppingCartVM.OrderHeader.Id});
@@ -148,7 +186,31 @@ namespace RetWeb.Areas.Customer.Controllers
 
         public IActionResult OrderConfirmation(int id)
         {
-            return View(id);
+            //we want to confirm stripe Payment
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "User");
+            if(orderHeader.PaymentStatus != SD.PaymentStatusDelayedPayment)
+            {
+                //this is an order by customer, then we get the stripe payment details
+                var service = new SessionService();
+                Session session = service.Get(orderHeader.SessionId);   //we get the sessionId from stripe session
+
+                if(session.PaymentStatus.ToLower() == "paid")
+                {
+                    //we update the paymentIntentId
+					_unitOfWork.OrderHeader.UpdateStripePaymentID(id, session.Id, session.PaymentIntentId);
+                    //we update the orderStatus
+                    _unitOfWork.OrderHeader.UpdateStatus(id, SD.PaymentStatusApproved, SD.PaymentStatusApproved);
+					_unitOfWork.Save();
+				}
+			}
+            //Get the list of items in the shopping cart and remove them from db
+            List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart
+                .GetAll(u => u.UserId == orderHeader.UserId).ToList();
+            _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
+			_unitOfWork.Save();
+
+
+			return View(id);
         }
 
 
