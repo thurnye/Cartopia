@@ -42,12 +42,12 @@ namespace RetWeb.DataAccess.Data
         /// <summary>
         /// db set for OrderDetail
         /// </summary>
-        public DbSet<OrderDetail> OrderDetail { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         /// <summary>
         /// db set for OrderDetail
         /// </summary>
-        public DbSet<OrderHeader> OrderHeader { get; set; }
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   

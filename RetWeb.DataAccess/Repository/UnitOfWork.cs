@@ -39,6 +39,17 @@ namespace RetWeb.DataAccess.Repository
         /// </summary>
         public IShoppingCartRepository ShoppingCart { get; private set; }
 
+        /// <summary>
+        /// OrderHeader
+        /// </summary>
+        public IOrderHeaderRepository OrderHeader { get; private set; }
+
+        /// <summary>
+        /// OrderDetail
+        /// </summary>
+        public IOrderDetailRepository OrderDetail { get; private set; }
+
+
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
@@ -47,6 +58,8 @@ namespace RetWeb.DataAccess.Repository
             Product = new ProductRepository(_db);
             Company = new CompanyRepository(_db);
             ShoppingCart = new ShoppingCartRepository(_db);
+            OrderHeader = new OrderHeaderRepository(_db);
+            OrderDetail = new OrderDetailRepository(_db);
         }
         public void Save()
         {
