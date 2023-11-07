@@ -95,7 +95,7 @@ namespace RetWeb.Areas.Customer.Controllers
 
             ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
 			ShoppingCartVM.OrderHeader.UserId = userId;
-			ShoppingCartVM.OrderHeader.User = _unitOfWork.User.Get(u => u.Id == userId);
+			var user = _unitOfWork.User.Get(u => u.Id == userId);
 
 			foreach (var cart in ShoppingCartVM.ShoppingCartList)
 			{
@@ -104,8 +104,9 @@ namespace RetWeb.Areas.Customer.Controllers
 			}
 
             //check if user has company Id to give 30 days wait period
+            var IsRegularCustomer = user.CompanyId.GetValueOrDefault() == 0;
 
-            if(ShoppingCartVM.OrderHeader.User.CompanyId.GetValueOrDefault() == 0)
+			if (IsRegularCustomer)
             {
                 //it is a regular customer account, capture payment
                 ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
@@ -135,10 +136,20 @@ namespace RetWeb.Areas.Customer.Controllers
 				_unitOfWork.Save();
 			}
 
-			// redirect to a confirmation  page
+			// redirect to a payment  page
+			if (IsRegularCustomer)
+			{
+                //Capture payment  - Stripe
+				
+			}
+
+            return RedirectToAction(nameof(OrderConfirmation), new {id = ShoppingCartVM.OrderHeader.Id});
 		}
 
-
+        public IActionResult OrderConfirmation(int id)
+        {
+            return View(id);
+        }
 
 
 		public IActionResult Plus(int cartId)

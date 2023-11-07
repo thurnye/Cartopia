@@ -2,6 +2,7 @@
 using RetWeb.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -46,10 +47,11 @@ namespace RetWeb.Models
         public string? Name { get; set; }
 
         [Required]
+		[DisplayName("Phone Number")]
         public string? PhoneNumber { get; set; }
 
         [Required]
-        public string? Street { get; set; }
+		public string? Street { get; set; }
 
         [Required]
         public string? City { get; set; }
@@ -61,7 +63,8 @@ namespace RetWeb.Models
         public string? Country { get; set; }
 
         [Required]
-        public string? PostalCode { get; set; }
+		[DisplayName("Postal Code")]
+		public string? PostalCode { get; set; }
 
     }
 }
