@@ -71,9 +71,21 @@ namespace Cartopia.Areas.Admin.Controllers
         [HttpGet]
 		public IActionResult GetAll( string status)
 		{
-			
+            IEnumerable<OrderHeader> objOrderHeaders;
+            //Get All Order by Role of the user
+			if(User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+            {
+                objOrderHeaders = _unitOfWork.OrderHeader.GetAll(includeProperties: "User").ToList();  // retrieve the list based on the status
 
-            IEnumerable<OrderHeader> objOrderHeaders = _unitOfWork.OrderHeader.GetAll(includeProperties: "User").ToList();  // retrieve the list based on the status
+            }
+            else
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                objOrderHeaders = _unitOfWork.OrderHeader .GetAll(u => u.UserId == userId, includeProperties: "User");
+            }
+
 			return Json(new { data = GetOrderHeaderByStatus(objOrderHeaders, status) });
 		}
 

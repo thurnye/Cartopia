@@ -189,12 +189,13 @@
                             }
 
                             <div class="row my-1">
-                                @if(Model.OrderHeader.SessionId == null)
+                                @if (Model.OrderHeader.SessionId == null)
                                 {
-                                <div class="col-3">Payment Due Date</div>
-                                <div class="col-9">
-                                    <input asp-for="@Model.OrderHeader.PaymentDueDate.ToShortDateString()" readonly type="text" class="form-control" />
+                                    <div class="col-3">Payment Due Date</div>
+                                    <div class="col-9">
+                                        <input value="@Model.OrderHeader.PaymentDueDate.ToShortDateString()" readonly type="text" class="form-control" />
                                     </div>
+
                                 }
                                 else
                                 {
