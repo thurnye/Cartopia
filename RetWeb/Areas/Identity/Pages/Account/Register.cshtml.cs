@@ -243,7 +243,15 @@ namespace Cartopia.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        if (User.IsInRole(SD.Role_Admin))
+                        { //if the admin user is signed in, that means the admin user is creating the account, this will prevent the logging out of the admin user
+                            TempData["success"] = "New User Created Successfully!.";
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }
