@@ -29,6 +29,22 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
 
+//configure facebook auth
+builder.Services.AddAuthentication().AddFacebook(option =>
+{
+    option.AppId = "881289470248130";
+    option.AppSecret = "bdca7cdcaa93dcf88a0ee475f0aedeca";
+});
+
+//This will help us with adding the sessions
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
@@ -50,6 +66,7 @@ StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey"
 app.UseRouting();
 app.UseAuthentication(); // Add the authentication before authorization
 app.UseAuthorization();
+app.UseSession(); //add session to the pipeline
 app.MapRazorPages();  // Add the routing for the razor pages
 app.MapControllerRoute(
     name: "default",

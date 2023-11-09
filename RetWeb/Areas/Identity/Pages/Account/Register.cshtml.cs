@@ -139,6 +139,7 @@ namespace Cartopia.Areas.Identity.Pages.Account
             public string? Street { get; set; }
             public string? City { get; set; }
             public string? State { get; set; }
+            public string? Country { get; set; }
             public string? PostalCode { get; set; }
             public string? PhoneNumber { get; set; }
             public int? CompanyId {  get; set; }
@@ -199,6 +200,7 @@ namespace Cartopia.Areas.Identity.Pages.Account
                 user.PhoneNumber = Input.PhoneNumber;
                 user.State = Input.State;
                 user.Street = Input.Street;
+                user.Country = Input.Country;
                 user.City = Input.City; 
                 user.PostalCode = Input.PostalCode;
 
@@ -241,7 +243,15 @@ namespace Cartopia.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        if (User.IsInRole(SD.Role_Admin))
+                        { //if the admin user is signed in, that means the admin user is creating the account, this will prevent the logging out of the admin user
+                            TempData["success"] = "New User Created Successfully!.";
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }

@@ -10,7 +10,7 @@ using Cartopia.Utility;
 namespace Cartopia.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = SD.Role_Admin)]   //add authorization for only admin access to routes/pages
+    [Authorize(Roles = SD.Role_Admin)]   //add authorization for only admin access to routes/pages
     public class CompanyController : Controller
     {
         /// <summary>

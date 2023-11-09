@@ -208,7 +208,7 @@ namespace Cartopia.Areas.Customer.Controllers
                 .GetAll(u => u.UserId == orderHeader.UserId).ToList();
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
 			_unitOfWork.Save();
-
+            HttpContext.Session.Clear();
 
 			return View(id);
         }
@@ -228,7 +228,8 @@ namespace Cartopia.Areas.Customer.Controllers
             var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
             if (cartFromDb.Count == 1)
             {
-                //remove that from Cart
+                //remove that from Cart and reduce the item in session
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.UserId == GetUserId()).Count() - 1);
                 _unitOfWork.ShoppingCart.Remove(cartFromDb);
             }
             else
@@ -243,6 +244,7 @@ namespace Cartopia.Areas.Customer.Controllers
         public IActionResult Remove(int cartId)
         {
             var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.UserId == GetUserId()).Count() - 1 );
             _unitOfWork.ShoppingCart.Remove(cartFromDb);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
