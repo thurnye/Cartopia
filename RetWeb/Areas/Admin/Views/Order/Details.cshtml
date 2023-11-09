@@ -1,7 +1,7 @@
 ﻿@model OrderVM
 
 <form method="post">
-    <input asp-for="OrderHeader.Id"  hidden />
+    <input asp-for="OrderHeader.Id" hidden />
     <br />
     <div class="container">
         <div class="card">
@@ -137,7 +137,7 @@
                             <div class="row my-1">
                                 <div class="col-3">Email</div>
                                 <div class="col-9">
-                                   <input asp-for="OrderHeader.User.Email" readonly type="text" class="form-control" />
+                                    <input asp-for="OrderHeader.User.Email" readonly type="text" class="form-control" />
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -162,13 +162,13 @@
                             <div class="row my-1">
                                 <div class="col-3">Tracking Number</div>
                                 <div class="col-9">
-                                    <input asp-for="OrderHeader.TrackingNumber"  type="text" class="form-control" />
+                                    <input asp-for="OrderHeader.TrackingNumber" type="text" class="form-control" />
                                 </div>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">Shipping Date</div>
                                 <div class="col-9">
-                                    <input value="@Model.OrderHeader.ShippingDate.ToShortDateString()"  type="text" class="form-control" />
+                                    <input value="@Model.OrderHeader.ShippingDate.ToShortDateString()" type="text" class="form-control" />
                                 </div>
                             </div>
 
@@ -176,8 +176,8 @@
                             {
                                 <div class="row my-1">
                                     <div class="col-3">Session ID</div>
-                                    <div class="col-9">   
-                                         <input asp-for="OrderHeader.SessionId" readonly type="text" class="form-control" />
+                                    <div class="col-9">
+                                        <input asp-for="OrderHeader.SessionId" readonly type="text" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -225,21 +225,21 @@
                             <label class="btn btn-outline-primary form-control my-2">Order Status - @Model.OrderHeader.OrderStatus</label>
 
                             <ul class="list-group mb-3">
-                                @foreach( var detail in Model.OrderDetail)
-                                { 
-                                <li class="list-group-item d-flex justify-content-between p-2">
-                                    <div class="row container">
-                                        <div class="col-8">
+                                @foreach (var detail in Model.OrderDetail)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between p-2">
+                                        <div class="row container">
+                                            <div class="col-8">
 
-                                            <h6 class="my-0 text-primary">@detail.Product.Title</h6>
-                                            <small class="text-muted">Price : @detail.Price.ToString("c")</small><br />
-                                            <small class="text-muted">Quantity : @detail.Count</small>
+                                                <h6 class="my-0 text-primary">@detail.Product.Title</h6>
+                                                <small class="text-muted">Price : @detail.Price.ToString("c")</small><br />
+                                                <small class="text-muted">Quantity : @detail.Count</small>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <p class="text-success">@((detail.Count * detail.Price).ToString("c"))</p>
+                                            </div>
                                         </div>
-                                        <div class="col-4 text-end">
-                                            <p class="text-success">@((detail.Count * detail.Price).ToString("c"))</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
                                 }
                                 <li class="list-group-item bg-primary">
                                     <div class="row container">
@@ -252,10 +252,31 @@
                                     </div>
                                 </li>
                             </ul>
-                            <input type="submit" class="btn btn-success form-control my-1" value="Pay Now" />
-                            <input type="submit" class="btn btn-primary form-control my-1" value="Start Processing" />
-                            <input type="submit" class="btn btn-primary form-control my-1" value="Ship Order" />
-                            <input type="submit" class="btn btn-danger form-control my-1" value="Cancel Order" />
+
+                            @if (Model.OrderHeader.PaymentStatus == SD.PaymentStatusDelayedPayment &&
+                            Model.OrderHeader.OrderStatus == SD.StatusShipped && Model.OrderHeader.OrderStatus == SD.StatusPending)
+                            {
+                                <input type="submit" asp-action="PayNow" class="btn btn-success form-control my-1" value="Pay Now" />
+                            }
+                            @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+                            {
+                                @if (Model.OrderHeader.OrderStatus == SD.StatusApproved)
+                                {
+                                    <input type="submit" asp-action="" class="btn btn-primary form-control my-1" value="Start Processing" />
+
+                                }
+                                @if (Model.OrderHeader.OrderStatus == SD.StatusInProcess)
+                                {
+                                    <input type="submit" asp-action="" class="btn btn-primary form-control my-1" value="Ship Order" />
+                                }
+
+                                @if (Model.OrderHeader.OrderStatus != SD.StatusRefunded &&
+                               Model.OrderHeader.OrderStatus != SD.StatusCancelled &&
+                               Model.OrderHeader.OrderStatus != SD.StatusShipped)
+                                {
+                                    <input type="submit" asp-action="" class="btn btn-danger form-control my-1" value="Cancel Order" />
+                                }
+                            }
                         </div>
                     </div>
                 </div>
@@ -263,3 +284,12 @@
         </div>
     </div>
 </form>
+
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+}
