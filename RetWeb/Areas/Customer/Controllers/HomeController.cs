@@ -29,6 +29,14 @@ namespace Cartopia.Areas.Customer.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            //to get the loginIn User, use use the claimsIdentity, which has the nameIdentifer which will have the userId of the user
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);    // this will retrieve the userId
+
+            if (claim != null)
+            {
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.UserId == claim.Value).Count());
+            }
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(c => c.IsDeleted == false);
             return View(productList);
         }
