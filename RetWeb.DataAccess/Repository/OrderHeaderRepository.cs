@@ -23,7 +23,7 @@ namespace Cartopia.DataAccess.Repository
 		public void UpdateStatus(int id, string orderStatus, string? paymentStatus = null)
 		{
             var orderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.Id == id);
-            if(orderFromDb == null)
+            if(orderFromDb != null)
             {
                 orderFromDb.OrderStatus = orderStatus;
 
@@ -43,7 +43,7 @@ namespace Cartopia.DataAccess.Repository
             }
             if(!string.IsNullOrEmpty(paymentIntentId))   // if payment is  successful then a paymentIntentId is generated
             {
-                orderFromDb.SessionId = sessionId;  //update a successful payment
+                orderFromDb.PaymentIntentId = paymentIntentId;  //update a successful payment
                 orderFromDb.PaymentDate = DateTime.Now;
             }
 		}
