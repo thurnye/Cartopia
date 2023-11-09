@@ -1,5 +1,6 @@
 ﻿using Cartopia.DataAccess.IRepository;
 using Cartopia.Models;
+using Cartopia.Models.ViewModels;
 using Cartopia.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -21,9 +22,19 @@ namespace Cartopia.Areas.Admin.Controllers
 			return View();
 		}
 
-		#region API Calls 
-		
-		[HttpGet]
+        public IActionResult Details(int orderId)
+        {
+            OrderVM orderVM= new()
+            {
+                OrderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == orderId, includeProperties: "User"),
+                OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderHeaderId == orderId, includeProperties: "Product")
+            };
+            return View(orderVM);
+        }
+
+        #region API Calls 
+
+        [HttpGet]
 		public IActionResult GetAll( string status)
 		{
 			

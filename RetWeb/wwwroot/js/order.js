@@ -41,7 +41,7 @@ const loadDataTable = (status) => {
                 "render": (data) => {
                     return `<div class="w-75 btn-group" role="group">
                                 <a href = "/admin/order/details?orderId=${data}" asp-controller="Order" asp-action="details" asp-route-id="@obj.Id" class=" mx-2">
-                                    <i class="bi bi-pencil-square"></i> 
+                                    <i class="bi bi-eye"></i> 
                                 </a>
                             </div>`
                 }
