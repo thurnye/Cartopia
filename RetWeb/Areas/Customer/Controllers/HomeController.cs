@@ -6,6 +6,8 @@ using Cartopia.Models;
 using Cartopia.Models.ViewModels;
 using System.Diagnostics;
 using System.Security.Claims;
+using Cartopia.Utility;
+using Microsoft.AspNetCore.Http;
 
 namespace Cartopia.Areas.Customer.Controllers
 {
@@ -70,8 +72,10 @@ namespace Cartopia.Areas.Customer.Controllers
             {
             //Add the shopping cart record
             _unitOfWork.ShoppingCart.Add(shoppingCart);
+                //when we add a new item to the cart, we will be adding the value to session with the total number of cart items the  user has
             }
             _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.UserId == userId).Count());
             TempData["success"] = "Added to Cart successfully";
             return RedirectToAction(nameof(Index));
         }
