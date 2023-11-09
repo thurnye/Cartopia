@@ -208,7 +208,7 @@ namespace Cartopia.Areas.Customer.Controllers
                 .GetAll(u => u.UserId == orderHeader.UserId).ToList();
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
 			_unitOfWork.Save();
-
+            HttpContext.Session.Clear();
 
 			return View(id);
         }
