@@ -162,13 +162,20 @@
                             <div class="row my-1">
                                 <div class="col-3">Tracking Number</div>
                                 <div class="col-9">
-                                    <input asp-for="OrderHeader.TrackingNumber" id="trackingNumber" type="text" class="form-control" />
+                                    @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+                                    {
+                                        <input asp-for="OrderHeader.TrackingNumber" id="trackingNumber" type="text" class="form-control" />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="OrderHeader.TrackingNumber" readonly type="text" class="form-control" />
+                                    }
                                 </div>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">Shipping Date</div>
                                 <div class="col-9">
-                                    <input value="@Model.OrderHeader.ShippingDate.ToShortDateString()" type="text" class="form-control" />
+                                    <input value="@Model.OrderHeader.ShippingDate.ToShortDateString()" readonly  type="text" class="form-control" />
                                 </div>
                             </div>
 
