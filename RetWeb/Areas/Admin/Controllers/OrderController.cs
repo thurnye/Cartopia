@@ -5,6 +5,7 @@ using Cartopia.Models.ViewModels;
 using Cartopia.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -103,6 +104,46 @@ namespace Cartopia.Areas.Admin.Controllers
             _unitOfWork.Save();
 
             TempData["Success"] = "Order Shipped Successfully!.";
+
+
+            return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
+        } 
+        
+        
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
+        public IActionResult CancelOrder()
+        {   
+            //when we cancel an order we process a refund from stripe
+            var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
+
+            if(orderHeader.PaymentStatus == SD.PaymentStatusApproved)
+            {
+                //Payment is approved and we have to process a refund
+                var options = new RefundCreateOptions
+                {
+                    Reason = RefundReasons.RequestedByCustomer,
+                    PaymentIntent = orderHeader.PaymentIntentId
+                };
+                //create a refund Service 
+                var service = new RefundService();
+                Refund refund = service.Create(options);
+
+            _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusRefunded);
+
+            }
+            else
+            {
+            _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusCancelled);
+
+            }
+
+            
+
+            //update the status
+            _unitOfWork.Save();
+
+            TempData["Success"] = "Order Cancelled Successfully!.";
 
 
             return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });

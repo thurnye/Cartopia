@@ -43,7 +43,7 @@ namespace Cartopia.DataAccess.Repository
             }
             if(!string.IsNullOrEmpty(paymentIntentId))   // if payment is  successful then a paymentIntentId is generated
             {
-                orderFromDb.SessionId = sessionId;  //update a successful payment
+                orderFromDb.PaymentIntentId = paymentIntentId;  //update a successful payment
                 orderFromDb.PaymentDate = DateTime.Now;
             }
 		}
