@@ -46,6 +46,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//Injection of Interfaces and Repositories
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddRazorPages();
