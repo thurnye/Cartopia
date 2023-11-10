@@ -8,6 +8,7 @@ using Stripe.Checkout;
 using Stripe;
 using System.Security.Claims;
 using static System.Net.WebRequestMethods;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 
 namespace Cartopia.Areas.Customer.Controllers
@@ -19,12 +20,14 @@ namespace Cartopia.Areas.Customer.Controllers
 
 
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmailSender _emailSender;
         [BindProperty]  //this will automatically populate the shoppingCartVm with values when the post for shoppingCartVM is clicked
         public ShoppingCartVM ShoppingCartVM { get; set; }
 
-        public CartController(IUnitOfWork unitOfWork)
+        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
+            _emailSender = emailSender;
         }
         public IActionResult Index()
         {
@@ -203,12 +206,16 @@ namespace Cartopia.Areas.Customer.Controllers
 					_unitOfWork.Save();
 				}
 			}
+            _emailSender.SendEmailAsync(orderHeader.User.Email, "Cartopia: New Order Summary",
+                $"<p>New Order Created - {orderHeader.Id}</p>");  //you can create an email template here
+
             //Get the list of items in the shopping cart and remove them from db
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart
                 .GetAll(u => u.UserId == orderHeader.UserId).ToList();
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
 			_unitOfWork.Save();
             HttpContext.Session.Clear();
+
 
 			return View(id);
         }

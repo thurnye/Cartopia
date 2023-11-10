@@ -7,6 +7,7 @@ using Cartopia.DataAccess.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
+using Cartopia.DataAccess.DBInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +46,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//Injection of Interfaces and Repositories
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
@@ -67,9 +70,21 @@ app.UseRouting();
 app.UseAuthentication(); // Add the authentication before authorization
 app.UseAuthorization();
 app.UseSession(); //add session to the pipeline
+SeedDatabase(); // we invoke the initializer seedDatabase Method
 app.MapRazorPages();  // Add the routing for the razor pages
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+//db initialize helper method by adding it to the pipeline
+
+void SeedDatabase ()
+{
+    using(var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}

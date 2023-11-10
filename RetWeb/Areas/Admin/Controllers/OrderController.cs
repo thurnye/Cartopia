@@ -97,7 +97,7 @@ namespace Cartopia.Areas.Admin.Controllers
             //Update the Payment DueDate based on the status for Company user.
             if (orderHeader.PaymentStatus == SD.PaymentStatusDelayedPayment)
             {
-                orderHeader.PaymentDueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
+                orderHeader.PaymentDueDate = DateTime.Now.AddDays(30);
             }
 
             //update the status
